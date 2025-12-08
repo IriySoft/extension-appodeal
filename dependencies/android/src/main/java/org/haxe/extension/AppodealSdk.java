@@ -49,7 +49,7 @@ public class AppodealSdk extends Extension {
 
   public static void Init(final String gameID) {
     Log.i(TAG, "Init called with id: " + gameID);
-    Log.i(TAG, + "\ni:"+Appodeal.INTERSTITIAL +
+    Log.i(TAG, "i:"+Appodeal.INTERSTITIAL +
       "\nr:"+Appodeal.REWARDED_VIDEO +
       "\nb:"+Appodeal.BANNER +
       "\nn:"+Appodeal.NATIVE +

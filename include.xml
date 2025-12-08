@@ -6,6 +6,8 @@
 	<!-- Use the following for an Android Java extension, not needed otherwise -->
 	
 	<dependency name="extension-appodeal" path="dependencies/android" if="android" />
+	<template path="template" if="android" />
+
 	<android extension="org.haxe.extension.AppodealSdk" />
 	
 </project>
