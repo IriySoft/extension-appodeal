@@ -14,6 +14,8 @@ import android.util.Log;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.initializing.ApdInitializationError;
 import com.appodeal.ads.initializing.ApdInitializationCallback;
+//import com.appodeal.ads.utils.Log;
+import com.appodeal.ads.utils.Log.LogLevel;
 
 import androidx.annotation.Nullable;
 import java.util.List;
@@ -47,64 +49,82 @@ public class AppodealSdk extends Extension {
   
   private static final String TAG = "Appodeal SDK";
 
-  public static void Init(final String gameID) {
-    Log.i(TAG, "Init called with id: " + gameID);
-    Log.i(TAG, "i:"+Appodeal.INTERSTITIAL +
-      "\nr:"+Appodeal.REWARDED_VIDEO +
-      "\nb:"+Appodeal.BANNER +
-      "\nn:"+Appodeal.NATIVE +
-      "\nm:"+Appodeal.MREC
-    );
+  public static void Init(final String gameID, final int adTypes, final boolean testing) {
+    if (verboseLog) Log.i(TAG, "Init called with id: " + gameID + " adTypes: " + adTypes +" testing: "+testing);
+    // Appodeal.setLogLevel(LogLevel.verbose);
+    if (testing) {
+      Appodeal.setTesting(true);
+      //Appodeal.setLogLevel(LogLevel.verbose);
+    }
     Appodeal.initialize(
       Extension.mainActivity, 
       gameID, 
-      (Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO), 
+      adTypes,
+      //(Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO), 
       new ApdInitializationCallback() {
         //@Override
         public void onInitializationFinished(@Nullable List<ApdInitializationError> errors) {
-          Log.i(TAG, "Appodeal initialized "+errors);
           if (errors != null) {
-            for (ApdInitializationError error : errors) Log.e(TAG, error.toString());
+            if (verboseLog) Log.i(TAG, "Appodeal initialized with errors");
+            if (verboseLog) for (ApdInitializationError error : errors) Log.e(TAG, error.toString());
+          } else {
+            if (verboseLog) Log.i(TAG, "Appodeal initialized successfully.");
           }
         }    
       }
     );    
   }
 
+  private static boolean verboseLog = false;
+
+  public static void SetVerboseLog(final boolean enable) {
+    Log.i(TAG, "Verbose log set to "+enable);
+    verboseLog = enable;
+    if (enable) Appodeal.setLogLevel(LogLevel.verbose);
+    else Appodeal.setLogLevel(LogLevel.none);
+  }
+
+  public static int GetAdId(final int adType) {
+    int adId = 0;
+    switch (adType) {
+      case 0: adId = Appodeal.INTERSTITIAL;
+      case 1: adId = Appodeal.REWARDED_VIDEO;
+      case 2: adId = Appodeal.BANNER;
+      case 3: adId = Appodeal.NATIVE;
+      case 4: adId = Appodeal.MREC;
+    }
+    if (verboseLog) Log.i(TAG, "Ad ID by type: "+adType+" -> "+adId);
+    return adId;
+  }
+
+  /*
+  public static int GetInterstitialId() {return Appodeal.INTERSTITIAL;}
+  public static int GetRewardedId()     {return Appodeal.REWARDED_VIDEO;}
+  public static int GetNannerId()       {return Appodeal.BANNER;}
+  public static int GetNativeId()       {return Appodeal.NATIVE;}
+  public static int GetMrecId()         {return Appodeal.MREC;}
+  */
+
   public static void ShowInterstitial() {
-    Log.i(TAG, "Interstitial requested (loaded: "+Appodeal.isLoaded(Appodeal.INTERSTITIAL)+")");
+    if (verboseLog) Log.i(TAG, "Interstitial requested (loaded: "+Appodeal.isLoaded(Appodeal.INTERSTITIAL)+")");
     if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
       Appodeal.show(Extension.mainActivity, Appodeal.INTERSTITIAL);
     }
   }
 
+  public static void ShowRewarded() {
+    if (verboseLog) Log.i(TAG, "Rewarded requested (loaded: "+Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)+")");
+    if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
+      Appodeal.show(Extension.mainActivity, Appodeal.REWARDED_VIDEO);
+    }
+  }
+
   public static boolean IsLoaded(int adType) {
-    Log.i(TAG, "IsLoaded "+adType+": "+Appodeal.isLoaded(adType));
-    return Appodeal.isLoaded(adType);
+    int adId = GetAdId(adType);
+    if (verboseLog) Log.i(TAG, "IsLoaded type "+adType+"(id "+adId+"): "+Appodeal.isLoaded(adId));
+    return Appodeal.isLoaded(adId);
   }
 
-
-  public static int sampleMethod (int inputValue) {
-    Log.i(TAG, "Init called");
-    Appodeal.initialize(
-      Extension.mainActivity, 
-      "651866191e91d90e01a890d44e0131d9fc6c6a92741096d0", 
-      (Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO), 
-      new ApdInitializationCallback() {
-        //@Override
-        public void onInitializationFinished(@Nullable List<ApdInitializationError> errors) {
-          Log.i(TAG, "Appodeal initialized "+errors);
-          if (errors != null) {
-            for (ApdInitializationError error : errors) Log.e(TAG, error.toString());
-          }
-        }    
-      }
-    );    
-    return inputValue * 100;
-    
-  }
-  
-  
   /**
    * Called when an activity you launched exits, giving you the requestCode 
    * you started it with, the resultCode it returned, and any additional data 
