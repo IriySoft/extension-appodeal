@@ -15,7 +15,28 @@ class Appodeal {
 	public static var inited (default, null): Bool = false;
 
 	static function Log(message: String): Void {
-		if (verboseLog) trace("Appodeal Extension: " + message);
+		if (verboseLog)
+			trace("Appodeal Extension: " + message);
+	}
+
+	/**
+	 * Event triggered for status updates from Appodeal.
+	 */
+	private static var _callback: Null<String->String->Void> = null;
+
+	/**
+	 * Add events' listener
+	 */
+	public static function setCallback(callback: String->String->Void): Void {
+		_callback = callback;
+	}
+	
+	/**
+	 * Dispatcjh and event, if there is a listener
+	 */
+	public static function dispatchEvent(category: String, message: String): Void	{
+		Log("Callback received: " + category + ": " + message);
+		if(_callback != null) _callback(category, message);
 	}
 
 	public static function Init(gameID: String, adTypes: Array <AdType>, testing: Bool = false): Void {
@@ -26,8 +47,9 @@ class Appodeal {
 		Log("Init types INT: "+types);
     if (inited) Log("Warning! Appodeal SDK is already inited");
 		if (init_jni == null)
-			init_jni = JNI.createStaticMethod("org/haxe/extension/AppodealSdk", "Init", "(Ljava/lang/String;IZ)V");
-		init_jni(gameID, types, testing);
+			init_jni = JNI.createStaticMethod("org/haxe/extension/AppodealSdk", "Init", 
+				"(Ljava/lang/String;IZLorg/haxe/lime/HaxeObject;)V");
+		init_jni(gameID, types, testing, new CallbackHandler());
 		inited = true;
 		#end
 	}
@@ -85,10 +107,26 @@ class Appodeal {
   private static var verboseLog: Bool = false;
 
 	// private static var sample_method = CFFI.load("extension_appodeal", "extension_appodeal_sample_method", 1);
-	private static var init_jni: String->Int->Bool->Void = null;
+	private static var init_jni: String->Int->Bool->Dynamic->Void = null;
 	private static var showInterstitial_jni: Void->Void = null;
 	private static var showRewarded_jni: Void->Void = null;
 	private static var getAdId_jni: Int->Int = null;
 	private static var isLoaded_jni: Int->Bool = null;
 	private static var setVerboseLog_jni: Bool->Void = null;
+}
+
+/**
+ * Internal callback handler for Appodeal events.
+ */
+@:noCompletion
+private class CallbackHandler #if (lime >= "8.0.0") implements lime.system.JNI.JNISafety #end {
+	public function new(): Void {}
+
+	@:keep
+	#if (lime >= "8.0.0")
+	@:runOnMainThread
+	#end
+	public function onStatus(event: String, data: String): Void	{
+		Appodeal.dispatchEvent(event, data);
+	}
 }

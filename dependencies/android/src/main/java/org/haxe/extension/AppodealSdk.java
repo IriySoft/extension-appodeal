@@ -1,5 +1,6 @@
 package org.haxe.extension;
 
+import org.haxe.lime.HaxeObject;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
@@ -14,6 +15,7 @@ import android.util.Log;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.initializing.ApdInitializationError;
 import com.appodeal.ads.initializing.ApdInitializationCallback;
+import com.appodeal.ads.InterstitialCallbacks;
 //import com.appodeal.ads.utils.Log;
 import com.appodeal.ads.utils.Log.LogLevel;
 
@@ -48,14 +50,30 @@ import java.util.List;
 public class AppodealSdk extends Extension {
   
   private static final String TAG = "Appodeal SDK";
+  private static HaxeObject haxeCallback = null;
 
-  public static void Init(final String gameID, final int adTypes, final boolean testing) {
+  // Callback event categories to avoid typos
+  private static final String INIT_EVENT = "onInit";
+  private static final String INTERSTITIAL_EVENT = "onInterstitial";
+  private static final String REWARDED_EVENT = "onRewarded";
+
+  // Callback messages to avoid typos
+
+  public static void Init(final String gameID, final int adTypes, final boolean testing, HaxeObject callback) {
+    haxeCallback = callback;
     if (verboseLog) Log.i(TAG, "Init called with id: " + gameID + " adTypes: " + adTypes +" testing: "+testing);
+    if (verboseLog) Log.i(TAG, "Callback: " + (haxeCallback != null));
     // Appodeal.setLogLevel(LogLevel.verbose);
     if (testing) {
       Appodeal.setTesting(true);
       //Appodeal.setLogLevel(LogLevel.verbose);
     }
+
+    //Log.i(TAG, "Check i: "+(adTypes & Appodeal.INTERSTITIAL)+" / "+Appodeal.INTERSTITIAL);
+
+    if ((adTypes & Appodeal.INTERSTITIAL) == Appodeal.INTERSTITIAL) setInterstitialCallbacks();
+    if ((adTypes & Appodeal.REWARDED_VIDEO) == Appodeal.REWARDED_VIDEO) setRewardedCallbacks();
+
     Appodeal.initialize(
       Extension.mainActivity, 
       gameID, 
@@ -67,12 +85,65 @@ public class AppodealSdk extends Extension {
           if (errors != null) {
             if (verboseLog) Log.i(TAG, "Appodeal initialized with errors");
             if (verboseLog) for (ApdInitializationError error : errors) Log.e(TAG, error.toString());
+            if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INIT_EVENT, "Failed"});
           } else {
             if (verboseLog) Log.i(TAG, "Appodeal initialized successfully.");
+            if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INIT_EVENT, "Success"});
           }
         }    
       }
     );    
+  }
+
+  static void setRewardedCallbacks() {
+
+  }
+
+  static void setInterstitialCallbacks() {
+    Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+      @Override
+      public void onInterstitialLoaded(boolean isPrecache) {
+        // Called when interstitial is loaded
+        if (verboseLog) Log.i(TAG, "Interstitial loaded.");
+        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Loaded"});
+      }
+      @Override
+      public void onInterstitialFailedToLoad() {
+        // Called when interstitial failed to load
+        if (verboseLog) Log.i(TAG, "Interstitial failed to load.");
+        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Load Failed"});
+      }
+      @Override
+      public void onInterstitialShown() {
+        // Called when interstitial is shown
+        if (verboseLog) Log.i(TAG, "Interstitial shown.");
+        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Shown"});
+      }
+      @Override
+      public void onInterstitialShowFailed() {
+        // Called when interstitial show failed
+        if (verboseLog) Log.i(TAG, "Interstitial show failed.");
+        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Finished"});
+      }
+      @Override
+      public void onInterstitialClicked() {
+        // Called when interstitial is clicked
+        if (verboseLog) Log.i(TAG, "Interstitial clicked.");
+        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Clicked"});
+      }
+      @Override
+      public void onInterstitialClosed() {
+        // Called when interstitial is closed
+        if (verboseLog) Log.i(TAG, "Interstitial closed.");
+        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Closed"});
+      }
+      @Override
+      public void onInterstitialExpired() {
+        // Called when interstitial is expired
+        if (verboseLog) Log.i(TAG, "Interstitial expired.");
+        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Expired"});
+      }
+    });
   }
 
   private static boolean verboseLog = false;
@@ -87,11 +158,25 @@ public class AppodealSdk extends Extension {
   public static int GetAdId(final int adType) {
     int adId = 0;
     switch (adType) {
-      case 0: adId = Appodeal.INTERSTITIAL;
-      case 1: adId = Appodeal.REWARDED_VIDEO;
-      case 2: adId = Appodeal.BANNER;
-      case 3: adId = Appodeal.NATIVE;
-      case 4: adId = Appodeal.MREC;
+      case 0: 
+        adId = Appodeal.INTERSTITIAL;
+        break;
+
+      case 1: 
+        adId = Appodeal.REWARDED_VIDEO;
+        break;
+        
+      case 2: 
+        adId = Appodeal.BANNER;
+        break;
+
+      case 3: 
+        adId = Appodeal.NATIVE;
+        break;
+
+      case 4: 
+        adId = Appodeal.MREC;
+        break;
     }
     if (verboseLog) Log.i(TAG, "Ad ID by type: "+adType+" -> "+adId);
     return adId;
