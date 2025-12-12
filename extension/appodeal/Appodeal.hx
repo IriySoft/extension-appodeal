@@ -27,16 +27,16 @@ class Appodeal {
 	/**
 	 * Add events' listener
 	 */
-	public static function setCallback(callback: String->String->Void): Void {
+	public static function SetCallback(callback: String->String->Void): Void {
 		_callback = callback;
 	}
 	
 	/**
 	 * Dispatcjh and event, if there is a listener
 	 */
-	public static function dispatchEvent(category: String, message: String): Void	{
-		Log("Callback received: " + category + ": " + message);
-		if(_callback != null) _callback(category, message);
+	public static function dispatchEvent(event: String, message: String): Void	{
+		Log("Callback received: " + event + ": " + message);
+		if(_callback != null) _callback(event, message);
 	}
 
 	public static function Init(gameID: String, adTypes: Array <AdType>, testing: Bool = false): Void {

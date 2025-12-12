@@ -16,6 +16,7 @@ import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.initializing.ApdInitializationError;
 import com.appodeal.ads.initializing.ApdInitializationCallback;
 import com.appodeal.ads.InterstitialCallbacks;
+import com.appodeal.ads.RewardedVideoCallbacks;
 //import com.appodeal.ads.utils.Log;
 import com.appodeal.ads.utils.Log.LogLevel;
 
@@ -52,12 +53,24 @@ public class AppodealSdk extends Extension {
   private static final String TAG = "Appodeal SDK";
   private static HaxeObject haxeCallback = null;
 
+  private static final String EVENT_FUNC = "onStatus";
+
   // Callback event categories to avoid typos
-  private static final String INIT_EVENT = "onInit";
-  private static final String INTERSTITIAL_EVENT = "onInterstitial";
-  private static final String REWARDED_EVENT = "onRewarded";
+  private static final String EVENT_INIT          = "onInit";
+  private static final String EVENT_INTERSTITIAL  = "onInterstitial";
+  private static final String EVENT_REWARDED      = "onRewarded";
 
   // Callback messages to avoid typos
+  private static final String MSG_FAILURE     = "Failure";
+  private static final String MSG_SUCCESS     = "Success";
+  private static final String MSG_LOADED      = "Loaded";
+  private static final String MSG_LOAD_FAILED = "Load Failed";
+  private static final String MSG_SHOWN       = "Shown";
+  private static final String MSG_SHOW_FAILED = "Show Failed";
+  private static final String MSG_FINISHED    = "Finished";
+  private static final String MSG_CLICKED     = "Clicked";
+  private static final String MSG_CLOSED      = "Closed";
+  private static final String MSG_EXPIRED     = "Expired";
 
   public static void Init(final String gameID, final int adTypes, final boolean testing, HaxeObject callback) {
     haxeCallback = callback;
@@ -66,7 +79,7 @@ public class AppodealSdk extends Extension {
     // Appodeal.setLogLevel(LogLevel.verbose);
     if (testing) {
       Appodeal.setTesting(true);
-      //Appodeal.setLogLevel(LogLevel.verbose);
+      // Appodeal.setLogLevel(LogLevel.verbose);
     }
 
     //Log.i(TAG, "Check i: "+(adTypes & Appodeal.INTERSTITIAL)+" / "+Appodeal.INTERSTITIAL);
@@ -85,18 +98,70 @@ public class AppodealSdk extends Extension {
           if (errors != null) {
             if (verboseLog) Log.i(TAG, "Appodeal initialized with errors");
             if (verboseLog) for (ApdInitializationError error : errors) Log.e(TAG, error.toString());
-            if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INIT_EVENT, "Failed"});
+            dispatch(EVENT_INIT, MSG_FAILURE);
+            //if (haxeCallback != null) haxeCallback.call(EVENT_FUNC, new Object[]{EVENT_INIT, "Failed"});
           } else {
             if (verboseLog) Log.i(TAG, "Appodeal initialized successfully.");
-            if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INIT_EVENT, "Success"});
+            dispatch(EVENT_INIT, MSG_SUCCESS);
+            //if (haxeCallback != null) haxeCallback.call(EVENT_FUNC, new Object[]{EVENT_INIT, "Success"});
           }
         }    
       }
     );    
   }
 
-  static void setRewardedCallbacks() {
+  static void dispatch(String event, String message) {
+    if (verboseLog) Log.i(TAG, "Event: " + event + " with message: " + message);
+    if (haxeCallback != null) haxeCallback.call(EVENT_FUNC, new Object[]{event, message});
+  }
 
+  static void setRewardedCallbacks() {
+    
+    Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
+      @Override
+      public void onRewardedVideoLoaded(boolean isPrecache) {
+        // Called when rewarded video is loaded
+        if (verboseLog) Log.i(TAG, "Rewarded loaded: " + isPrecache);
+        dispatch(EVENT_REWARDED, MSG_LOADED);
+      }
+      @Override
+      public void onRewardedVideoFailedToLoad() {
+        // Called when rewarded video failed to load
+        dispatch(EVENT_REWARDED, MSG_LOAD_FAILED);
+      }
+      @Override
+      public void onRewardedVideoShown() {
+        // Called when rewarded video is shown
+        dispatch(EVENT_REWARDED, MSG_SHOWN);
+      }
+      @Override
+      public void onRewardedVideoShowFailed() {
+        // Called when rewarded video show failed
+        dispatch(EVENT_REWARDED, MSG_SHOW_FAILED);
+      }
+      @Override
+      public void onRewardedVideoClicked() {
+        // Called when rewarded video is clicked
+        dispatch(EVENT_REWARDED, MSG_CLICKED);
+      }
+      @Override
+      public void onRewardedVideoFinished(double amount, String currency) {
+        // Called when rewarded video is viewed until the end
+        if (verboseLog) Log.i(TAG, "Rewarded finished, reward: " + amount + " of "+currency);
+        dispatch(EVENT_REWARDED, MSG_FINISHED);
+      }
+      @Override
+      public void onRewardedVideoClosed(boolean finished) {
+        // Called when rewarded video is closed
+        if (verboseLog) Log.i(TAG, "Rewarded closed, finished: " + finished);
+        dispatch(EVENT_REWARDED, MSG_CLOSED);
+      }
+      @Override
+      public void onRewardedVideoExpired() {
+        // Called when rewarded video is expired
+        dispatch(EVENT_REWARDED, MSG_EXPIRED);
+      }
+    });
   }
 
   static void setInterstitialCallbacks() {
@@ -104,44 +169,38 @@ public class AppodealSdk extends Extension {
       @Override
       public void onInterstitialLoaded(boolean isPrecache) {
         // Called when interstitial is loaded
-        if (verboseLog) Log.i(TAG, "Interstitial loaded.");
-        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Loaded"});
+        if (verboseLog) Log.i(TAG, "Interstitial loaded: " + isPrecache);
+        dispatch(EVENT_INTERSTITIAL, MSG_LOADED);
       }
       @Override
       public void onInterstitialFailedToLoad() {
         // Called when interstitial failed to load
-        if (verboseLog) Log.i(TAG, "Interstitial failed to load.");
-        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Load Failed"});
+        dispatch(EVENT_INTERSTITIAL, MSG_LOAD_FAILED);
       }
       @Override
       public void onInterstitialShown() {
         // Called when interstitial is shown
-        if (verboseLog) Log.i(TAG, "Interstitial shown.");
-        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Shown"});
+        dispatch(EVENT_INTERSTITIAL, MSG_SHOWN);
       }
       @Override
       public void onInterstitialShowFailed() {
         // Called when interstitial show failed
-        if (verboseLog) Log.i(TAG, "Interstitial show failed.");
-        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Finished"});
+        dispatch(EVENT_INTERSTITIAL, MSG_FINISHED);
       }
       @Override
       public void onInterstitialClicked() {
         // Called when interstitial is clicked
-        if (verboseLog) Log.i(TAG, "Interstitial clicked.");
-        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Clicked"});
+        dispatch(EVENT_INTERSTITIAL, MSG_CLICKED);
       }
       @Override
       public void onInterstitialClosed() {
         // Called when interstitial is closed
-        if (verboseLog) Log.i(TAG, "Interstitial closed.");
-        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Closed"});
+        dispatch(EVENT_INTERSTITIAL, MSG_CLOSED);
       }
       @Override
       public void onInterstitialExpired() {
         // Called when interstitial is expired
-        if (verboseLog) Log.i(TAG, "Interstitial expired.");
-        if (haxeCallback != null) haxeCallback.call("onStatus", new Object[]{INTERSTITIAL_EVENT, "Expired"});
+        dispatch(EVENT_INTERSTITIAL, MSG_EXPIRED);
       }
     });
   }
@@ -158,25 +217,11 @@ public class AppodealSdk extends Extension {
   public static int GetAdId(final int adType) {
     int adId = 0;
     switch (adType) {
-      case 0: 
-        adId = Appodeal.INTERSTITIAL;
-        break;
-
-      case 1: 
-        adId = Appodeal.REWARDED_VIDEO;
-        break;
-        
-      case 2: 
-        adId = Appodeal.BANNER;
-        break;
-
-      case 3: 
-        adId = Appodeal.NATIVE;
-        break;
-
-      case 4: 
-        adId = Appodeal.MREC;
-        break;
+      case 0: adId = Appodeal.INTERSTITIAL;   break;
+      case 1: adId = Appodeal.REWARDED_VIDEO; break;
+      case 2: adId = Appodeal.BANNER;         break;
+      case 3: adId = Appodeal.NATIVE;         break;
+      case 4: adId = Appodeal.MREC;           break;
     }
     if (verboseLog) Log.i(TAG, "Ad ID by type: "+adType+" -> "+adId);
     return adId;
