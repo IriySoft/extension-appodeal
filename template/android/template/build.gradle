@@ -7,7 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'com.android.tools.build:gradle:::ANDROID_GRADLE_PLUGIN::'
-	// NOTE: Do not place your application dependencies here; they belong
+		// NOTE: Do not place your application dependencies here; they belong
 		// in the individual module build.gradle files
 		classpath 'com.google.gms:google-services:4.4.4'
 	}
@@ -17,9 +17,7 @@ allprojects {
 	repositories {
 		mavenCentral()
 		google()
-		maven {
-			url = uri("https://artifactory.appodeal.com/appodeal")
-		}
+		maven {	url = uri("https://artifactory.appodeal.com/appodeal") }
 
 	}::if ANDROID_GRADLE_BUILD_DIRECTORY::
 	buildDir = "::ANDROID_GRADLE_BUILD_DIRECTORY::/::APP_FILE::/${project.name}"::end::
