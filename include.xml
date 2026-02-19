@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	
-	<ndll name="extension-appodeal" unless="android" />
-	
-	<!-- Use the following for an Android Java extension, not needed otherwise -->
-	
-	<dependency name="extension-appodeal" path="dependencies/android" if="android" />
-	<template path="template" if="android" />
+  
+  <ndll name="appodeal" unless="android" />
+  
+  <!-- Use the following for an Android Java extension, not needed otherwise -->
+  
+  <dependency name="extension-appodeal" path="dependencies/android" if="android" />
+  <template path="template" if="android" />
 
-	<android extension="org.haxe.extension.AppodealSdk" />
-	
+  <android extension="org.haxe.extension.AppodealSdk" />
+
+  <section if="ios">
+    <ios linker-flags="-ObjC" />
+    <ios linker-flags="$(inherited)" />
+  </section>
 </project>

@@ -2,7 +2,7 @@
 #define EXTENSION_APPODEAL_H
 
 
-namespace extension_appodeal {
+namespace appodeal {
 	
 	
 	int SampleMethod(int inputValue);

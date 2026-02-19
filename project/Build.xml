@@ -1,4 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <xml>
+	<pragma once="true" />
 	
 	<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
 	
@@ -7,7 +10,16 @@
 		<compilerflag value="-Iinclude"/>
 		
 		<file name="common/ExternalInterface.cpp"/>
-		<file name="common/extension-appodeal.cpp"/>
+		<!--file name="common/extension-appodeal.cpp"/-->
+		
+	</files>
+
+	<files id="iphone">
+		
+		<compilerflag value="-IiPhone/include"/>
+		<compilerflag value="-Iinclude"/>
+		
+		<file name="iphone/Appodeal.mm"/>
 		
 	</files>
 	
@@ -22,7 +34,7 @@
 		<outdir name="../ndll/${BINDIR}"/>
 		<ext value=".ndll" if="windows || mac || linux"/>
 		<files id="common"/>
-		
+                <files id="iphone" if="iphone"/>
 	</target>
 	
 	<target id="default">

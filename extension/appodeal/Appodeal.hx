@@ -45,14 +45,21 @@ class Appodeal {
 		var types: Int = 0;
 		for (t in adTypes) types = types | GetAdId(t);
 		Log("Init types INT: "+types);
-    if (inited) Log("Warning! Appodeal SDK is already inited");
+		if (inited) Log("Warning! Appodeal SDK is already inited");
 		if (init_jni == null)
 			init_jni = JNI.createStaticMethod("org/haxe/extension/AppodealSdk", "Init", 
 				"(Ljava/lang/String;IZLorg/haxe/lime/HaxeObject;)V");
 		init_jni(gameID, types, testing, new CallbackHandler());
 		inited = true;
+                #elseif ios
+		sample_method = cpp.Lib.load ("appodeal", "appodeal_sample_method", 1);
+		var result: Int = smaple_method(2);
+		Log("Sample result: "+result);
 		#end
 	}
+
+	private static var sample_method: Int->Int = null;
+
 
 	private static function GetAdId(type: AdType): Int {
     Log("Get ad id for "+type+" (JNI created "+(getAdId_jni == null)+")");

@@ -11,27 +11,27 @@
 #include "Utils.h"
 
 
-using namespace extension_appodeal;
+using namespace appodeal;
 
 
 
-static value extension_appodeal_sample_method (value inputValue) {
+static value appodeal_sample_method (value inputValue) {
 	
 	int returnValue = SampleMethod(val_int(inputValue));
 	return alloc_int(returnValue);
 	
 }
-DEFINE_PRIM (extension_appodeal_sample_method, 1);
+DEFINE_PRIM (appodeal_sample_method, 1);
 
 
 
-extern "C" void extension_appodeal_main () {
+extern "C" void appodeal_main () {
 	
 	val_int(0); // Fix Neko init
 	
 }
-DEFINE_ENTRY_POINT (extension_appodeal_main);
+DEFINE_ENTRY_POINT (appodeal_main);
 
 
 
-extern "C" int extension_appodeal_register_prims () { return 0; }
+extern "C" int appodeal_register_prims () { return 0; }
