@@ -9,8 +9,12 @@
   <template path="template" if="android" />
 
   <android extension="org.haxe.extension.AppodealSdk" />
-
   <section if="ios">
+
+    <dependency name="JavaScriptCore.framework" />
+    <dependency name="AppTrackingTransparency.framework" />
+
+    <include path="appodealframeworks.xml" />
     <ios linker-flags="-ObjC" />
     <ios linker-flags="$(inherited)" />
   </section>

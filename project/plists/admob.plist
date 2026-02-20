@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>GADApplicationIdentifier</key>
+  <string>::ENV_ADMOB_APPID::</string>
+  <key>GADDelayAppMeasurementInit</key>
+  <true/>
+  <key>NSUserTrackingUsageDescription</key>
+  <string>We use tracking to show personalized ads</string>
+  <key>SKAdNetworkItems</key>
+</dict>
+</plist>
