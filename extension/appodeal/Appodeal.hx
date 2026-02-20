@@ -53,7 +53,7 @@ class Appodeal {
 		inited = true;
                 #elseif ios
 		sample_method = cpp.Lib.load ("appodeal", "appodeal_sample_method", 1);
-		var result: Int = smaple_method(2);
+		var result: Int = sample_method(2);
 		Log("Sample result: "+result);
 		#end
 	}
