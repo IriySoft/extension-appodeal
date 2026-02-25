@@ -4,8 +4,4 @@
 #import <Foundation/Foundation.h>
 #import <Appodeal/Appodeal.h>
 
-@interface MyAppDelegate: NSObject <AppodealInitializationDelegate>
-
-@end
-
 #endif

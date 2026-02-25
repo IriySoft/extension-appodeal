@@ -3,6 +3,7 @@
 
 namespace appodeal {
   int SampleMethod(int inputValue);
+  void Init(const char *appId);
 }
 
 #endif
