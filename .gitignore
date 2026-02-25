@@ -3,7 +3,7 @@ project/obj/
 
 # Examples of other files you might choose to ignore
 #*.zip
-#ndll/*/*.a
+ndll/*/*.a
 #ndll/*/*.so
 #ndll/*/*.ndll
-#ndll/*/*.hash
+ndll/*/*.hash

@@ -1,5 +1,5 @@
 #include "Utils.h"
-#include "Appodeal.h"
+#include "AppodealExtension.h"
 #import <Foundation/Foundation.h>
 #import <Appodeal/Appodeal.h>
 
@@ -32,5 +32,5 @@ namespace appodeal {
 		return inputValue * 100;
 	}
 }
-
+@end // MyAppDelegate
 
