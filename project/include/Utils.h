@@ -1,14 +1,8 @@
-#ifndef EXTENSION_APPODEAL_H
-#define EXTENSION_APPODEAL_H
-
+#ifndef EXTENSION_APPODEAL_UTILS_H
+#define EXTENSION_APPODEAL_UTILS_H
 
 namespace appodeal {
-	
-	
-	int SampleMethod(int inputValue);
-	
-	
+  int SampleMethod(int inputValue);
 }
-
 
 #endif
