@@ -11,7 +11,9 @@
   <android extension="org.haxe.extension.AppodealSdk" />
   <section if="ios">
     <dependency name="JavaScriptCore.framework" />
-    <!--include path="appodealframeworks.xml" /-->
+    <dependency name="AppTrackingTransparency.framework" />
+    <include path="appodealframeworks.xml" />
+    <include path="admobframeworks.xml" />
     <ios linker-flags="-ObjC" />
     <ios linker-flags="$(inherited)" />
   </section>

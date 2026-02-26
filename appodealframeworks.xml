@@ -111,7 +111,6 @@
   <dependency path="dependencies/ios/IASDKCore.xcframework"/>
   <dependency path="dependencies/ios/InMobiSDK.xcframework"/>
   <dependency path="dependencies/ios/IronSource.xcframework"/>
-  <dependency path="dependencies/ios/ISAdMobAdapter.xcframework"/>
   <dependency path="dependencies/ios/ISAppLovinAdapter.xcframework"/>
   <dependency path="dependencies/ios/ISAPSAdapter.xcframework"/>
   <dependency path="dependencies/ios/ISBidMachineAdapter.xcframework"/>

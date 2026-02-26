@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <dependency path="dependencies/ios/APDGoogleAdMobAdapter.xcframework"/>
+  <dependency path="dependencies/ios/AppLovinMediationGoogleAdapter.xcframework"/>
+  <dependency path="dependencies/ios/AppLovinMediationGoogleAdManagerAdapter.xcframework"/>
+  <dependency path="dependencies/ios/Google_Mobile_Ads_SDK.xcframework"/>
+  <dependency path="dependencies/ios/GoogleAdsOnDeviceConversion.xcframework"/>
+  <dependency path="dependencies/ios/GoogleAppMeasurement.xcframework"/>
+  <dependency path="dependencies/ios/GoogleAppMeasurementIdentitySupport.xcframework"/>
+  <dependency path="dependencies/ios/GoogleMobileAds.xcframework"/>
+  <dependency path="dependencies/ios/GoogleUtilities.xcframework"/>
+  <dependency path="dependencies/ios/ISAdMobAdapter.xcframework"/>
+</project>
