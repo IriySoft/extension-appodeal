@@ -6,20 +6,13 @@
   <!-- Use the following for an Android Java extension, not needed otherwise -->
   
   <dependency name="extension-appodeal" path="dependencies/android" if="android" />
-  <template path="template" if="android" />
+  <template path="template" if="mobile" />
 
   <android extension="org.haxe.extension.AppodealSdk" />
   <section if="ios">
-
-    <dependency path="dependencies/ios/Appodeal.xcframework"/>
     <dependency name="JavaScriptCore.framework" />
-
-    <include path="appodealframeworks.xml" />
+    <!--include path="appodealframeworks.xml" /-->
     <ios linker-flags="-ObjC" />
     <ios linker-flags="$(inherited)" />
-
-    <config:ios NSUserTrackingUsageDescription="${PRODUCT_NAME} needs your advertising identifier to provide personalised advertising experience tailored to you" />
-    <config:ios NSCalendarsUsageDescription="${PRODUCT_NAME} needs your calendar to provide personalised advertising experience tailored to you" />
-
   </section>
 </project>
