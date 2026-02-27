@@ -21,17 +21,17 @@
     <compilerflag value="-I${haxelib:extension-appodeal}/project/include" />
     <compilerflag value="-DHXCPP_GC_CHECK_POINTER"/>
 
-    <!--section if="iphoneos">
+    <section if="iphoneos">
       <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64/" if="HXCPP_ARM64" />
     </section>
 
     <section if="iphonesim || simulator">
       <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64_x86_64-simulator/"/>
-    </section-->
+    </section>
 
     <compilerflag value="-IiPhone/include"/>
     <compilerflag value="-Iinclude"/>
-    <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/" />
+    <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios" />
     
     <file name="iphone/AppodealExtension.mm"/>
     

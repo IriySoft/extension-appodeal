@@ -2,7 +2,7 @@
 <project>
   <dependency path="dependencies/ios/AdjustPurchase.xcframework"/>
   <dependency path="dependencies/ios/AdjustSdk.xcframework"/>
-  <dependency path="dependencies/ios/AdjustSigSdk.xcframework"/>
+  <dependency path="dependencies/ios/AdjustSigSdk.xcframework" embed="true"/>
   <dependency path="dependencies/ios/AppLovinMediationAmazonAdMarketplaceAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppLovinMediationBidMachineAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppLovinMediationBidonAdapter.xcframework"/>
@@ -22,7 +22,7 @@
   <dependency path="dependencies/ios/AppLovinMediationVerveAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppLovinMediationVungleAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppLovinMediationYandexAdapter.xcframework"/>
-  <dependency path="dependencies/ios/AppLovinSDK.xcframework"/>
+  <dependency path="dependencies/ios/AppLovinSDK.xcframework" embed="true"/>
   <dependency path="dependencies/ios/AppMetricaAdSupport.xcframework"/>
   <dependency path="dependencies/ios/AppMetricaCore.xcframework"/>
   <dependency path="dependencies/ios/AppMetricaCoreExtension.xcframework"/>
@@ -68,7 +68,7 @@
   <dependency path="dependencies/ios/AppodealVungleAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppodealYandexAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppsFlyerLib.xcframework"/>
-  <dependency path="dependencies/ios/ATOM.xcframework"/>
+  <dependency path="dependencies/ios/ATOM.xcframework" embed="true"/>
   <dependency path="dependencies/ios/BidMachine.xcframework"/>
   <dependency path="dependencies/ios/BidMachineIronSourceCustomAdapter.xcframework"/>
   <dependency path="dependencies/ios/Bidon.xcframework"/>
@@ -93,12 +93,12 @@
   <dependency path="dependencies/ios/ChartboostSDK.xcframework"/>
   <dependency path="dependencies/ios/DivKit.xcframework"/>
   <dependency path="dependencies/ios/DivKitBinaryCompatibilityFacade.xcframework"/>
-  <dependency path="dependencies/ios/DTBiOSSDK.xcframework"/>
-  <dependency path="dependencies/ios/FBAEMKit.xcframework"/>
+  <dependency path="dependencies/ios/DTBiOSSDK.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/FBAEMKit.xcframework" embed="true"/>
   <dependency path="dependencies/ios/FBAudienceNetwork.xcframework"/>
   <dependency path="dependencies/ios/FBLPromises.xcframework"/>
-  <dependency path="dependencies/ios/FBSDKCoreKit.xcframework"/>
-  <dependency path="dependencies/ios/FBSDKCoreKit_Basics.xcframework"/>
+  <dependency path="dependencies/ios/FBSDKCoreKit.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/FBSDKCoreKit_Basics.xcframework" embed="true"/>
   <dependency path="dependencies/ios/FirebaseABTesting.xcframework"/>
   <dependency path="dependencies/ios/FirebaseAnalytics.xcframework"/>
   <dependency path="dependencies/ios/FirebaseCore.xcframework"/>
@@ -109,7 +109,7 @@
   <dependency path="dependencies/ios/FirebaseSharedSwift.xcframework"/>
   <dependency path="dependencies/ios/HyBid.xcframework"/>
   <dependency path="dependencies/ios/IASDKCore.xcframework"/>
-  <dependency path="dependencies/ios/InMobiSDK.xcframework"/>
+  <dependency path="dependencies/ios/InMobiSDK.xcframework" embed="true"/>
   <dependency path="dependencies/ios/IronSource.xcframework"/>
   <dependency path="dependencies/ios/ISAppLovinAdapter.xcframework"/>
   <dependency path="dependencies/ios/ISAPSAdapter.xcframework"/>
@@ -130,8 +130,8 @@
   <dependency path="dependencies/ios/ISVungleAdapter.xcframework"/>
   <dependency path="dependencies/ios/LayoutKit.xcframework"/>
   <dependency path="dependencies/ios/LayoutKitInterface.xcframework"/>
-  <dependency path="dependencies/ios/MobileFuseSDK.xcframework"/>
-  <dependency path="dependencies/ios/MolocoSDK.xcframework"/>
+  <dependency path="dependencies/ios/MobileFuseSDK.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/MolocoSDK.xcframework" embed="true"/>
   <dependency path="dependencies/ios/MTGSDK.xcframework"/>
   <dependency path="dependencies/ios/MTGSDKBanner.xcframework"/>
   <dependency path="dependencies/ios/MTGSDKBidding.xcframework"/>
@@ -143,36 +143,36 @@
   <dependency path="dependencies/ios/MyTargetSDK.xcframework"/>
   <dependency path="dependencies/ios/MyTrackerSDK.xcframework"/>
   <dependency path="dependencies/ios/nanopb.xcframework"/>
-  <dependency path="dependencies/ios/OguryAds.xcframework"/>
-  <dependency path="dependencies/ios/OguryCore.xcframework"/>
-  <dependency path="dependencies/ios/OgurySdk.xcframework"/>
-  <dependency path="dependencies/ios/OMSDK_Appodeal.xcframework"/>
-  <dependency path="dependencies/ios/OMSDK_Ogury.xcframework"/>
-  <dependency path="dependencies/ios/OMSDK_Pubmatic.xcframework"/>
-  <dependency path="dependencies/ios/OMSDK_Pubnativenet.xcframework"/>
-  <dependency path="dependencies/ios/OMSDK_Smaato.xcframework"/>
-  <dependency path="dependencies/ios/OpenWrapSDK.xcframework"/>
+  <dependency path="dependencies/ios/OguryAds.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/OguryCore.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/OgurySdk.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/OMSDK_Appodeal.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/OMSDK_Ogury.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/OMSDK_Pubmatic.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/OMSDK_Pubnativenet.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/OMSDK_Smaato.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/OpenWrapSDK.xcframework" embed="true"/>
   <dependency path="dependencies/ios/PAGAdSDK.xcframework"/>
   <dependency path="dependencies/ios/Protobuf.xcframework"/>
   <dependency path="dependencies/ios/PurchaseConnector.xcframework"/>
   <dependency path="dependencies/ios/Sentry.xcframework"/>
   <dependency path="dependencies/ios/Serialization.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKBanner.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKCore.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKInAppBidding.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKInterstitial.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKNative.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKOpenMeasurement.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKOutstream.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKRewardedAds.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKRichMedia.xcframework"/>
-  <dependency path="dependencies/ios/SmaatoSDKVideo.xcframework"/>
+  <dependency path="dependencies/ios/SmaatoSDKBanner.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKCore.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKInAppBidding.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKInterstitial.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKNative.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKOpenMeasurement.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKOutstream.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKRewardedAds.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKRichMedia.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/SmaatoSDKVideo.xcframework" embed="true"/>
   <dependency path="dependencies/ios/StackConsentManager.xcframework"/>
   <dependency path="dependencies/ios/StackModules.xcframework"/>
   <dependency path="dependencies/ios/StackProductPresentation.xcframework"/>
   <dependency path="dependencies/ios/StackRendering.xcframework"/>
-  <dependency path="dependencies/ios/StartApp.xcframework"/>
-  <dependency path="dependencies/ios/TaurusxAdsSDK.xcframework"/>
+  <dependency path="dependencies/ios/StartApp.xcframework" embed="true"/>
+  <dependency path="dependencies/ios/TaurusxAdsSDK.xcframework" embed="true"/>
   <dependency path="dependencies/ios/TikTokBusinessSDK.xcframework"/>
   <dependency path="dependencies/ios/UnityAds.xcframework"/>
   <dependency path="dependencies/ios/UserMessagingPlatform.xcframework"/>
