@@ -38,7 +38,6 @@ namespace appodeal {
       logExt([NSString stringWithFormat:@"Init - started for types %ld", adTypes]);
 
       [Appodeal setAutocache:YES types:adTypes]; 
-      [Appodeal setLogLevel:APDLogLevelVerbose];
 
       logExt(@"Init - creating Init delegate...");
 
@@ -54,5 +53,30 @@ namespace appodeal {
     }
   }
 
-}
+  void SetVerboseLog(bool isVerbose) {
+    if (isVerbose) {
+      logExt(@"SetVerboseLog to TRUE");
+      verboseLog = YES;
+      [Appodeal setLogLevel:APDLogLevelVerbose];
+    } else {
+      logExt(@"SetVerboseLog to FALSE");
+      verboseLog = NO;
+      [Appodeal setLogLevel:APDLogLevelOff];
+    }
+  }
 
+  int GetAdId(int adType) {
+    int adId = 0;
+    switch (adType) {
+      case 0: adId = AppodealAdTypeInterstitial;       break;
+      case 1: adId = AppodealAdTypeRewardedVideo;      break;
+      case 2: adId = AppodealAdTypeBanner;             break;
+      case 3: adId = AppodealAdTypeNativeAd;           break;
+      case 4: adId = AppodealAdTypeMREC;               break;
+      case 5: adId = AppodealAdTypeNonSkippableVideo;  break;
+    }
+    logExt([NSString stringWithFormat:@"Ad ID for type %i is: %i)", adType, adId]);
+    return adId;
+  }
+
+}

@@ -20,10 +20,23 @@ static value appodeal_sample_method (value inputValue) {
 DEFINE_PRIM (appodeal_sample_method, 1);
 
 
-static void appodeal_init_method (value inputValue) {
+static void appodeal_set_verbose (value inputValue) {
+  SetVerboseLog(val_bool(inputValue));
+}
+DEFINE_PRIM (appodeal_set_verbose, 1);
+
+
+static int appodeal_get_adid (value inputValue) {
+  int adId = GetAdId(val_int(inputValue));
+  return alloc_int(adId);
+}
+DEFINE_PRIM (appodeal_get_adid, 1);
+
+
+static void appodeal_init (value inputValue) {
   Init(val_string(inputValue));
 }
-DEFINE_PRIM (appodeal_init_method, 1);
+DEFINE_PRIM (appodeal_init, 1);
 
 
 extern "C" void appodeal_main () {

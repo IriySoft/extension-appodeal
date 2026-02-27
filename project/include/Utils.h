@@ -4,6 +4,8 @@
 namespace appodeal {
   int SampleMethod(int inputValue);
   void Init(const char *appId);
+  void SetVerboseLog(bool isVerbose);
+  int GetAdId(int adType);
 }
 
 #endif
