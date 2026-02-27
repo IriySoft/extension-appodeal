@@ -7,14 +7,20 @@
   
   <dependency name="extension-appodeal" path="dependencies/android" if="android" />
   <template path="template" if="mobile" />
-
   <android extension="org.haxe.extension.AppodealSdk" />
+
   <section if="ios">
-    <dependency name="JavaScriptCore.framework" />
-    <dependency name="AppTrackingTransparency.framework" />
+
+    <!--dependency name="JavaScriptCore.framework" />
+    <dependency name="AppTrackingTransparency.framework" /-->
+    <!--set name="FRAMEWORK_DIR" value="ios-arm64" unless="simulator"/>
+    <set name="FRAMEWORK_DIR" value="ios-arm64_x86_64-simulator" if="simulator"/-->
+
+    <ndll name="appodeal"/>
     <include path="appodealframeworks.xml" />
-    <include path="admobframeworks.xml" />
+    <include path="admobframeworks.xml" unless="APPODEAL_EXCLUDE_ADMOB"/>
     <ios linker-flags="-ObjC" />
     <ios linker-flags="$(inherited)" />
+    <config:ios deployment="13.0" />
   </section>
 </project>

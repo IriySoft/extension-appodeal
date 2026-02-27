@@ -6,7 +6,7 @@ namespace appodeal {
 	
 	int SampleMethod(int inputValue) {
 		
-		return inputValue * 100;
+		return inputValue * 10;
 		
 	}
 	

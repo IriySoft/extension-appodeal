@@ -54,10 +54,10 @@ class Appodeal {
 
     #elseif ios
     sample_method = cpp.Lib.load("appodeal", "appodeal_sample_method", 1);
-    init_c = cpp.Lib.load("appodeal", "appodeal_init", 1);
+    init_c        = cpp.Lib.load("appodeal", "appodeal_init", 1);
     var result: Int = sample_method(2);
     Log("Sample result: "+result);
-    Log("Call init with id: "+gameID);
+    Log("Call init with id: " + gameID + "(" + (init_c!=null) + ")");
     init_c(gameID);
     #end
 

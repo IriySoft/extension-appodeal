@@ -25,6 +25,7 @@ static void appodeal_init_method (value inputValue) {
 }
 DEFINE_PRIM (appodeal_init_method, 1);
 
+
 extern "C" void appodeal_main () {
   val_int(0); // Fix Neko init
 }

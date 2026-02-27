@@ -1,54 +1,61 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 
 <xml>
-	<pragma once="true" />
-	
-	<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
-	
-	<files id="common">
-		
-		<compilerflag value="-Iinclude"/>
-		
-		<file name="common/ExternalInterface.cpp"/>
-		<!--file name="common/extension-appodeal.cpp"/-->
-		
-	</files>
+  <pragma once="true" />
+  
+  <include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+  
+  <files id="common">
+    
+    <compilerflag value="-I${haxelib:extension-appodeal}/project/include" />
+    <compilerflag value="-Iinclude"/>
+    <compilerflag value="-DHXCPP_GC_CHECK_POINTER"/>
 
-	<files id="iphone">
-		
-        <section if="iphoneos">
-            <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64/" if="HXCPP_ARM64" />
-        </section>
+    <file name="common/ExternalInterface.cpp"/>
+    <!--file name="common/extension-appodeal.cpp"/-->
+    
+  </files>
 
-        <section if="iphonesim || simulator">
-            <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64_x86_64-simulator/"/>
-        </section>
+  <files id="iphone">
+    
+    <compilerflag value="-I${haxelib:extension-appodeal}/project/include" />
+    <compilerflag value="-DHXCPP_GC_CHECK_POINTER"/>
 
-        <compilerflag value="-IiPhone/include"/>
-		<compilerflag value="-Iinclude"/>
-		
-		<file name="iphone/AppodealExtension.mm"/>
-		
-	</files>
-	
-	<set name="SLIBEXT" value=".lib" if="windows"/>
-	<set name="SLIBEXT" value=".a" unless="windows"/>
-	<set name="SLIBEXT" value=".so" if="webos"/>
-	
-	<set name="DEBUGEXTRA" value="-debug" if="fulldebug" />
-	
-	<target id="NDLL" output="${LIBPREFIX}appodeal${MSVC_LIB_VERSION}${DEBUGEXTRA}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
-		
-		<outdir name="../ndll/${BINDIR}"/>
-		<ext value=".ndll" if="windows || mac || linux"/>
-		<files id="common"/>
-                <files id="iphone" if="iphone"/>
-	</target>
-	
-	<target id="default">
-		
-		<target id="NDLL"/>
-		
-	</target>
-	
+    <!--section if="iphoneos">
+      <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64/" if="HXCPP_ARM64" />
+    </section>
+
+    <section if="iphonesim || simulator">
+      <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64_x86_64-simulator/"/>
+    </section-->
+
+    <compilerflag value="-IiPhone/include"/>
+    <compilerflag value="-Iinclude"/>
+    <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/" />
+    
+    <file name="iphone/AppodealExtension.mm"/>
+    
+  </files>
+  
+  <set name="SLIBEXT" value=".lib" if="windows"/>
+  <set name="SLIBEXT" value=".a" unless="windows"/>
+  <set name="SLIBEXT" value=".so" if="webos"/>
+  
+  <set name="DEBUGEXTRA" value="-debug" if="fulldebug" />
+  
+  <target id="NDLL" output="${LIBPREFIX}appodeal${MSVC_LIB_VERSION}${DEBUGEXTRA}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+    
+    <outdir name="../ndll/${BINDIR}"/>
+    <ext value=".ndll" if="windows || mac || linux"/>
+    <vflag name="-framework" value="Appodeal" />
+    <files id="common"/>
+    <files id="iphone" if="iphone"/>
+  </target>
+  
+  <target id="default">
+    
+    <target id="NDLL"/>
+    
+  </target>
+  
 </xml>
