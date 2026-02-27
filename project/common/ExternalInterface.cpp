@@ -26,7 +26,7 @@ static void appodeal_set_verbose (value inputValue) {
 DEFINE_PRIM (appodeal_set_verbose, 1);
 
 
-static int appodeal_get_adid (value inputValue) {
+static value appodeal_get_adid (value inputValue) {
   int adId = GetAdId(val_int(inputValue));
   return alloc_int(adId);
 }
