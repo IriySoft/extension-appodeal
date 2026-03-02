@@ -3,7 +3,7 @@
 
 namespace appodeal {
   int SampleMethod(int inputValue);
-  void Init(const char *appId);
+  void InitAppodeal(const char *appId, int adTypes, bool testing);
   void SetVerboseLog(bool isVerbose);
   int GetAdId(int adType);
 }

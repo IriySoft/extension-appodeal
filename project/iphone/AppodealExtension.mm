@@ -3,23 +3,21 @@
 #import <Foundation/Foundation.h>
 #import <Appodeal/Appodeal.h>
 
-  @implementation InitDelegate
-    - (void)appodealSDKDidInitialize {
-      logExt(@"Appodeal SDK inited!");
-      // Appodeal SDK did complete initialization
-      inited = YES;
-      //[self release]
-    }
-  @end // InitDelegate
-
-  static BOOL initializing = NO;
-  static NSString *applicationId = nil;
-
-
-  void logExt(NSString *message) {
-    if (verboseLog) NSLog(@"AppodealExt: %@", message);
+@implementation InitDelegate
+  - (void)appodealSDKDidInitialize {
+    logExt(@"Appodeal SDK inited!");
+    // Appodeal SDK did complete initialization
+    inited = YES;
+    initializing = NO;
+    //[self release]
   }
+@end // InitDelegate
 
+static NSString *applicationId = nil;
+
+void logExt(NSString *message) {
+  if (verboseLog) NSLog(@"AppodealExt: %@", message);
+}
 
 namespace appodeal {
   int SampleMethod(int inputValue) {
@@ -27,18 +25,18 @@ namespace appodeal {
     return inputValue * 100;
   }
 
-  void Init(const char *appId) {
+  void InitAppodeal(const char *appId, int adTypesInt, bool testing) {
     logExt(@"Init!");
     NSString *_appId = [NSString stringWithUTF8String:appId];
-    logExt([NSString stringWithFormat:@"Init with ID %@", _appId]);
+    logExt([NSString stringWithFormat:@"Init with ID %@, testing: @i", _appId, testing]);
     if (!inited && !initializing) {
       applicationId = _appId;
       initializing = YES;
-      AppodealAdType adTypes = AppodealAdTypeInterstitial | AppodealAdTypeRewardedVideo;
+      AppodealAdType adTypes = (AppodealAdType) adTypesInt; //AppodealAdTypeInterstitial | AppodealAdTypeRewardedVideo;
       logExt([NSString stringWithFormat:@"Init - started for types %ld", adTypes]);
 
       [Appodeal setAutocache:YES types:adTypes]; 
-
+      [Appodeal setTestingEnabled:(testing ? YES : NO)];
       logExt(@"Init - creating Init delegate...");
 
       // Optional delegate for initialization completion
@@ -55,11 +53,11 @@ namespace appodeal {
 
   void SetVerboseLog(bool isVerbose) {
     if (isVerbose) {
-      logExt(@"SetVerboseLog to TRUE");
+      logExt(@"Set verbose log to TRUE");
       verboseLog = YES;
       [Appodeal setLogLevel:APDLogLevelVerbose];
     } else {
-      logExt(@"SetVerboseLog to FALSE");
+      logExt(@"Set verbose log to FALSE");
       verboseLog = NO;
       [Appodeal setLogLevel:APDLogLevelOff];
     }
@@ -68,12 +66,12 @@ namespace appodeal {
   int GetAdId(int adType) {
     int adId = 0;
     switch (adType) {
-      case 0: adId = AppodealAdTypeInterstitial;       break;
-      case 1: adId = AppodealAdTypeRewardedVideo;      break;
-      case 2: adId = AppodealAdTypeBanner;             break;
-      case 3: adId = AppodealAdTypeNativeAd;           break;
-      case 4: adId = AppodealAdTypeMREC;               break;
-      case 5: adId = AppodealAdTypeNonSkippableVideo;  break;
+      case 0: adId = (int) AppodealAdTypeInterstitial;       break;
+      case 1: adId = (int) AppodealAdTypeRewardedVideo;      break;
+      case 2: adId = (int) AppodealAdTypeBanner;             break;
+      case 3: adId = (int) AppodealAdTypeNativeAd;           break;
+      case 4: adId = (int) AppodealAdTypeMREC;               break;
+      case 5: adId = (int) AppodealAdTypeNonSkippableVideo;  break;
     }
     logExt([NSString stringWithFormat:@"Ad ID for type %i is: %i)", adType, adId]);
     return adId;

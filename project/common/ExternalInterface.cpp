@@ -9,9 +9,31 @@
 
 #include <hx/CFFI.h>
 #include "Utils.h"
+#include <iostream>
 
 
 using namespace appodeal;
+
+value extCallback = nullptr;
+
+static void appodeal_init (value appId, value adTypes, value testing, value callback) {
+  //extCallback = new AutoGCRoot(callback);
+  if (val_is_function(callback)) {
+    extCallback = callback;
+    std::cout << "Callback is a function!";
+    sendExternalEvent("Init", "Test");
+  }
+  InitAppodeal(val_string(appId), val_int(adTypes), val_bool(testing));
+}
+DEFINE_PRIM (appodeal_init, 4);
+
+
+void sendExternalEvent(const char *event, const char *data) {
+  if (exctCallback != nullptr && val_is_function(exctCallback)) {
+    val_call2(exctCallback, alloc_string(event), alloc_string(data));
+  }
+}
+
 
 static value appodeal_sample_method (value inputValue) {
   int returnValue = SampleMethod(val_int(inputValue));
@@ -20,23 +42,17 @@ static value appodeal_sample_method (value inputValue) {
 DEFINE_PRIM (appodeal_sample_method, 1);
 
 
-static void appodeal_set_verbose (value inputValue) {
-  SetVerboseLog(val_bool(inputValue));
+static void appodeal_set_verbose (value verboseMode) {
+  SetVerboseLog(val_bool(verboseMode));
 }
 DEFINE_PRIM (appodeal_set_verbose, 1);
 
 
-static value appodeal_get_adid (value inputValue) {
-  int adId = GetAdId(val_int(inputValue));
+static value appodeal_get_adid (value extAdType) {
+  int adId = GetAdId(val_int(extAdType));
   return alloc_int(adId);
 }
 DEFINE_PRIM (appodeal_get_adid, 1);
-
-
-static void appodeal_init (value inputValue) {
-  Init(val_string(inputValue));
-}
-DEFINE_PRIM (appodeal_init, 1);
 
 
 extern "C" void appodeal_main () {

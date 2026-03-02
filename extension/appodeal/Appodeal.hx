@@ -66,22 +66,22 @@ class Appodeal {
 
     #if android
     initF(gameID, types, testing, new CallbackHandler());
-
+    inited = true;
     #elseif ios
     //sample_method = cpp.Lib.load("appodeal", "appodeal_sample_method", 1);
     //var result: Int = sample_method(2);
     //Log("Sample result: "+result);
-
-    init_c = cpp.Lib.load("appodeal", "appodeal_init", 1);
+    initF(gameID, types, testing, cpp.Callable.fromStaticFunction(onAppodealStatus));
+    /*init_c = cpp.Lib.load("appodeal", "appodeal_init", 4);
     Log("Call init with id: " + gameID + "(" + (init_c!=null) + ")");
-    init_c(gameID);
-    #end
+    init_c(gameID, types, testing, onAppodealStatus);*/
     inited = true;
+    #end
 
   }
 
   //private static var sample_method: Int->Int = null;
-  private static var init_c: String->Void = null;
+  //private static var init_c: String->Int->Bool->Dynamic->Void = null;
 
   private static function GetAdId(type: AdType): Int {
     Log("Get ad id for " + type);
@@ -141,6 +141,8 @@ class Appodeal {
     Log("Loading CPP functions...");
     setVerboseLogF = cpp.Lib.load("appodeal", "appodeal_set_verbose", 1);    
     getAdIdF = cpp.Lib.load("appodeal", "appodeal_get_adid", 1);    
+    initF = cpp.Lib.load("appodeal", "appodeal_init", 4);
+
     functionsCreated = true;
   }
   #else
@@ -151,14 +153,29 @@ class Appodeal {
 
   private static var verboseLog: Bool = false;
 
-  private static var initF: String->Int->Bool->Dynamic->Void = null;
   private static var showInterstitialF: Void->Void = null;
   private static var showRewardedF: Void->Void = null;
   private static var getAdIdF: Int->Int = null; //
   private static var isLoadedF: Int->Bool = null;
   private static var setVerboseLogF: Bool->Void = null; //
+  private static var initF: String->Int->Bool->Dynamic->Void = null;
+
+  #if ios
+  /*
+	@:native("initF")
+	extern public static function initF(gameID: String, types: Int, testing: Bool, 
+		callback: cpp.Callable<(event: cpp.ConstCharStar, value: cpp.ConstCharStar)->Void>): Void;
+    */
+
+	@:callable
+	private static function onAppodealStatus(event: cpp.ConstCharStar, data: cpp.ConstCharStar): Void {
+    Log("Callback: ('"+event+"'), ('"+data+"')");
+		MainLoop.runInMainThread(() -> dispatchEvent((event: String), (data: String)))
+	}
+  #end
 }
 
+#if android
 /**
  * Internal callback handler for Appodeal events.
  */
@@ -171,6 +188,8 @@ private class CallbackHandler #if (lime >= "8.0.0") implements lime.system.JNI.J
   @:runOnMainThread
   #end
   public function onStatus(event: String, data: String): Void  {
+    Log("Callback: ('"+event+"'), ('"+data+"')");
     Appodeal.dispatchEvent(event, data);
   }
 }
+#end
