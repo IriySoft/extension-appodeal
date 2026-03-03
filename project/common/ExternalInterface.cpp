@@ -14,12 +14,13 @@
 
 using namespace appodeal;
 
-value extCallback = nullptr;
+value *extCallback = NULL;
 
 static void appodeal_init (value appId, value adTypes, value testing, value callback) {
   //extCallback = new AutoGCRoot(callback);
   if (val_is_function(callback)) {
-    extCallback = callback;
+    if (extCallback == NULL) extCallback = alloc_root(2);
+    *extCallback = callback;
     std::cout << "Callback is a function!";
     sendExternalEvent("Init", "Test");
   }
@@ -29,8 +30,8 @@ DEFINE_PRIM (appodeal_init, 4);
 
 
 void sendExternalEvent(const char *event, const char *data) {
-  if (exctCallback != nullptr && val_is_function(exctCallback)) {
-    val_call2(exctCallback, alloc_string(event), alloc_string(data));
+  if (exctCallback != NULL && val_is_function(*exctCallback)) {
+    val_call2(*exctCallback, alloc_string(event), alloc_string(data));
   }
 }
 
