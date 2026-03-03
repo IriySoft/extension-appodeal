@@ -1,5 +1,4 @@
 package extension.appodeal;
-
 #if android
 import lime.system.JNI;
 #end
@@ -18,8 +17,7 @@ enum abstract AdType (Int) from Int to Int {
   var APPODEAL_NON_SKIPPABLE = 5;
 }
 
-@:keep
-@:allow(extension.appodeal) class Appodeal {
+class Appodeal {
   public static var inited (default, null): Bool = false;
   private static var functionsCreated: Bool = false;
 
@@ -75,7 +73,11 @@ enum abstract AdType (Int) from Int to Int {
     //sample_method = cpp.Lib.load("appodeal", "appodeal_sample_method", 1);
     //var result: Int = sample_method(2);
     //Log("Sample result: "+result);
-    initF(gameID, types, testing, cpp.Callable.fromStaticFunction(onAppodealStatus));
+    //initF(gameID, types, testing, cpp.Callable.fromStaticFunction(onAppodealStatus));
+    //var callback = function (event: cpp.ConstCharStar, data: cpp.ConstCharStar) {
+      // trace("Event! "+event+" "+data);
+    //};
+    initF(gameID, types, testing, (e: String, d: String) -> Appodeal.OnAppodealStatus(e, d)/*trace("Event! "+e+": "+d)*/);
     /*init_c = cpp.Lib.load("appodeal", "appodeal_init", 4);
     Log("Call init with id: " + gameID + "(" + (init_c!=null) + ")");
     init_c(gameID, types, testing, onAppodealStatus);*/
@@ -172,12 +174,14 @@ enum abstract AdType (Int) from Int to Int {
 		callback: cpp.Callable<(event: cpp.ConstCharStar, value: cpp.ConstCharStar)->Void>): Void;
     */
 
-    //@:native("onAppodealStatus")
   //@:noCompletion
-  private static function onAppodealStatus(event: cpp.ConstCharStar, data: cpp.ConstCharStar): Void {
-    Log("Callback: ('"+event+"'), ('"+data+"')");
+
+  //@:native("OnAppodealStatus")
+  //@:nativeStaticExtension
+  public static function OnAppodealStatus(event: String, data: String): Void {
+    Log("Callback event: "+event+", data: "+data);
     @:keep
-    MainLoop.runInMainThread(() -> dispatchEvent((event: String), (data: String)));
+    MainLoop.runInMainThread(() -> dispatchEvent(event, data));
   }
   #end
 }
