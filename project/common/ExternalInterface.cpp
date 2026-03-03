@@ -16,24 +16,32 @@ using namespace appodeal;
 
 value *extCallback = NULL;
 
+
+static void sendExternalEvent(const char *event, const char *data) {
+  std::cout << "Appodeal CPP Event: "<<event<<", data: "<<data<<"\n";
+
+  if (extCallback != NULL /*&& val_is_function(*extCallback)*/) {
+    val_call2(*extCallback, alloc_string(event), alloc_string(data));
+  }
+}
+
+
 static void appodeal_init (value appId, value adTypes, value testing, value callback) {
   //extCallback = new AutoGCRoot(callback);
+  std::cout << "Appodeal CPP INIT "<<val_type(callback)<<"\n";
+ // val_call2(callback, alloc_string("EVT"), alloc_string("DT"));
   if (val_is_function(callback)) {
-    if (extCallback == NULL) extCallback = alloc_root(2);
+    if (extCallback == NULL) extCallback = alloc_root();
     *extCallback = callback;
-    std::cout << "Callback is a function!";
+    std::cout << "Appodeal CPP Callback is a function?..\n";
     sendExternalEvent("Init", "Test");
+  } else {
+    std::cout << "Appodeal CPP Callback is NOT a function!\n";
   }
   InitAppodeal(val_string(appId), val_int(adTypes), val_bool(testing));
 }
 DEFINE_PRIM (appodeal_init, 4);
 
-
-void sendExternalEvent(const char *event, const char *data) {
-  if (exctCallback != NULL && val_is_function(*exctCallback)) {
-    val_call2(*exctCallback, alloc_string(event), alloc_string(data));
-  }
-}
 
 
 static value appodeal_sample_method (value inputValue) {

@@ -28,7 +28,7 @@ namespace appodeal {
   void InitAppodeal(const char *appId, int adTypesInt, bool testing) {
     logExt(@"Init!");
     NSString *_appId = [NSString stringWithUTF8String:appId];
-    logExt([NSString stringWithFormat:@"Init with ID %@, testing: @i", _appId, testing]);
+    logExt([NSString stringWithFormat:@"Init with ID %@, testing: %i", _appId, testing]);
     if (!inited && !initializing) {
       applicationId = _appId;
       initializing = YES;

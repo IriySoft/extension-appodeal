@@ -1,9 +1,12 @@
 package extension.appodeal;
 
-import lime.system.CFFI;
-
 #if android
 import lime.system.JNI;
+#end
+
+#if ios
+import haxe.MainLoop;
+import lime.system.CFFI;
 #end
 
 enum abstract AdType (Int) from Int to Int {
@@ -15,7 +18,7 @@ enum abstract AdType (Int) from Int to Int {
   var APPODEAL_NON_SKIPPABLE = 5;
 }
 
-class Appodeal {
+@:allow(extension.appodeal) class Appodeal {
   public static var inited (default, null): Bool = false;
   private static var functionsCreated: Bool = false;
 
@@ -162,16 +165,18 @@ class Appodeal {
 
   #if ios
   /*
-	@:native("initF")
+    //@:callable
+	//@:native("initF")
 	extern public static function initF(gameID: String, types: Int, testing: Bool, 
 		callback: cpp.Callable<(event: cpp.ConstCharStar, value: cpp.ConstCharStar)->Void>): Void;
     */
 
-	@:callable
-	private static function onAppodealStatus(event: cpp.ConstCharStar, data: cpp.ConstCharStar): Void {
+    //@:native("onAppodealStatus")
+  //@:noCompletion
+  private static function onAppodealStatus(event: cpp.ConstCharStar, data: cpp.ConstCharStar): Void {
     Log("Callback: ('"+event+"'), ('"+data+"')");
-		MainLoop.runInMainThread(() -> dispatchEvent((event: String), (data: String)))
-	}
+    MainLoop.runInMainThread(() -> dispatchEvent((event: String), (data: String)));
+  }
   #end
 }
 
