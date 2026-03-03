@@ -18,6 +18,7 @@ enum abstract AdType (Int) from Int to Int {
   var APPODEAL_NON_SKIPPABLE = 5;
 }
 
+@:keep
 @:allow(extension.appodeal) class Appodeal {
   public static var inited (default, null): Bool = false;
   private static var functionsCreated: Bool = false;
@@ -175,6 +176,7 @@ enum abstract AdType (Int) from Int to Int {
   //@:noCompletion
   private static function onAppodealStatus(event: cpp.ConstCharStar, data: cpp.ConstCharStar): Void {
     Log("Callback: ('"+event+"'), ('"+data+"')");
+    @:keep
     MainLoop.runInMainThread(() -> dispatchEvent((event: String), (data: String)));
   }
   #end

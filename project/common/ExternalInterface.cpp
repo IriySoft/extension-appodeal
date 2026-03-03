@@ -14,25 +14,26 @@
 
 using namespace appodeal;
 
-value *extCallback = NULL;
+AutoGCRoot* extCallback = NULL;
 
 
 static void sendExternalEvent(const char *event, const char *data) {
   std::cout << "Appodeal CPP Event: "<<event<<", data: "<<data<<"\n";
 
   if (extCallback != NULL /*&& val_is_function(*extCallback)*/) {
-    val_call2(*extCallback, alloc_string(event), alloc_string(data));
+    //val_call2(*extCallback, alloc_string(event), alloc_string(data));
   }
 }
 
 
 static void appodeal_init (value appId, value adTypes, value testing, value callback) {
   //extCallback = new AutoGCRoot(callback);
-  std::cout << "Appodeal CPP INIT "<<val_type(callback)<<"\n";
+  std::cout << "Appodeal CPP INIT callback type: "<<val_type(callback)<<", function: "<<val_is_function(callback)<<"\n";
  // val_call2(callback, alloc_string("EVT"), alloc_string("DT"));
+  if (extCallback == NULL) extCallback = new AutoGCRoot(callback);
+  std::cout << "AGCR type: "<<val_type(extCallback->get())<<", function: "<<val_is_function(extCallback->get())<<"\n";
   if (val_is_function(callback)) {
-    if (extCallback == NULL) extCallback = alloc_root();
-    *extCallback = callback;
+    //*extCallback = callback;
     std::cout << "Appodeal CPP Callback is a function?..\n";
     sendExternalEvent("Init", "Test");
   } else {
