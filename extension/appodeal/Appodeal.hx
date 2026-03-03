@@ -1,4 +1,5 @@
 package extension.appodeal;
+
 #if android
 import lime.system.JNI;
 #end
@@ -20,6 +21,7 @@ enum abstract AdType (Int) from Int to Int {
 class Appodeal {
   public static var inited (default, null): Bool = false;
   private static var functionsCreated: Bool = false;
+  private static var initStarted: Bool = false;
 
   private static function Log(message: String): Void {
     if (verboseLog) trace("Appodeal Extension: "+message);
@@ -34,6 +36,7 @@ class Appodeal {
    * Add events' listener
    */
   public static function SetCallback(callback: String->String->Void): Void {
+    Log("New callback is set.");
     _callback = callback;
   }
   
@@ -41,15 +44,22 @@ class Appodeal {
    * Dispatch an event, if there is a listener
    */
   public static function dispatchEvent(event: String, message: String): Void  {
-    Log("Callback received: "+event+": "+message);
+    Log("Event received: "+event+" -> "+message+". Callback is set: "+(_callback != null));
+    if (event == AppodealEvent.EVENT_INIT) {
+      initStarted = false;
+      inited = (message == AppodealEvent.MSG_SUCCESS);
+    }
     if(_callback != null) _callback(event, message);
   }
 
   public static function Init(gameID: String, adTypes: Array <AdType>, testing: Bool = false): Void {
     Log("Try Init "+gameID+" with "+adTypes+" (testing: "+testing+")");
-
     if (inited) {
       Log("Warning! Appodeal SDK is already inited, won't init twice");
+      return;
+    }
+    if (initStarted) {
+      Log("Warning! Appodeal SDK is being inited, please wait for the result");
       return;
     }
 
@@ -59,6 +69,7 @@ class Appodeal {
       Log("Warning! Couldn't create functions, won't init");
       return;
     }
+    initStarted = true;
 
     var types: Int = 0;
     for (t in adTypes) types = types | GetAdId(t);
@@ -77,7 +88,7 @@ class Appodeal {
     //var callback = function (event: cpp.ConstCharStar, data: cpp.ConstCharStar) {
       // trace("Event! "+event+" "+data);
     //};
-    initF(gameID, types, testing, (e: String, d: String) -> Appodeal.OnAppodealStatus(e, d)/*trace("Event! "+e+": "+d)*/);
+    initF(gameID, types, testing, (e: String, d: String) -> Appodeal.OnAppodealStatus(e, d));
     /*init_c = cpp.Lib.load("appodeal", "appodeal_init", 4);
     Log("Call init with id: " + gameID + "(" + (init_c!=null) + ")");
     init_c(gameID, types, testing, onAppodealStatus);*/
@@ -102,8 +113,12 @@ class Appodeal {
   }
 
   public static function IsLoaded(type: AdType): Bool {
-    Log("Check loaded for ad type "+type);
-    if (!inited) return false;
+    if (!inited) {
+      Log("Check loaded for ad type "+type);
+      return false;
+    }
+    var adId: Int = GetAdId(type);
+    Log("Check loaded for ad type "+type+" (id: "+adId+")");
     return isLoadedF(type);
   }
 
@@ -149,6 +164,11 @@ class Appodeal {
     getAdIdF = cpp.Lib.load("appodeal", "appodeal_get_adid", 1);    
     initF = cpp.Lib.load("appodeal", "appodeal_init", 4);
 
+    // TODO: implement the folowing functions:
+    //showRewardedF = cpp.Lib.load("appodeal", "appodeal_show_rewarded", 0);
+    //showInterstitialF = cpp.Lib.load("appodeal", "appodeal_show_interstitial", 0);
+    //isLoadedF = cpp.Lib.load("appodeal", "is_loaded", 1);
+
     functionsCreated = true;
   }
   #else
@@ -161,23 +181,12 @@ class Appodeal {
 
   private static var showInterstitialF: Void->Void = null;
   private static var showRewardedF: Void->Void = null;
-  private static var getAdIdF: Int->Int = null; //
+  private static var getAdIdF: Int->Int = null;
   private static var isLoadedF: Int->Bool = null;
-  private static var setVerboseLogF: Bool->Void = null; //
+  private static var setVerboseLogF: Bool->Void = null;
   private static var initF: String->Int->Bool->Dynamic->Void = null;
 
   #if ios
-  /*
-    //@:callable
-	//@:native("initF")
-	extern public static function initF(gameID: String, types: Int, testing: Bool, 
-		callback: cpp.Callable<(event: cpp.ConstCharStar, value: cpp.ConstCharStar)->Void>): Void;
-    */
-
-  //@:noCompletion
-
-  //@:native("OnAppodealStatus")
-  //@:nativeStaticExtension
   public static function OnAppodealStatus(event: String, data: String): Void {
     Log("Callback event: "+event+", data: "+data);
     @:keep
