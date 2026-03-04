@@ -20,6 +20,13 @@ void logExt(NSString *message) {
 }
 
 namespace appodeal {
+
+  void sendEventWrap(const char* type, const char* data) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      sendPurchaseEvent(type, data);
+    });
+  }
+
   int SampleMethod(int inputValue) {
     logExt(@"Sample Appodeal!");
     return inputValue * 100;

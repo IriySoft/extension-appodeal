@@ -17,7 +17,7 @@ using namespace appodeal;
 //AutoGCRoot* extCallback = NULL;
 value * extCallback = NULL;
 
-static void sendExternalEvent(const char *event, const char *data) {
+extern "C" void sendExternalEvent(const char *event, const char *data) {
   //std::cout << "Appodeal CPP Event: "<<event<<", data: "<<data<<"\n";
   if (extCallback != NULL && val_is_function(*extCallback)) {
     //val_call2(extCallback->get(), alloc_string(event), alloc_string(data));
