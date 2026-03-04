@@ -107,7 +107,7 @@
 
   - (void)rewardedVideoDidFinish:(float)rewardAmount name:(NSString *)rewardName {
     // rewarded video finished with some reward
-    logExt([NSString stringWithFormat:@"Rewarded ad finished, reward: %.f, name: %@", rewardAmont, rewardName]);
+    logExt([NSString stringWithFormat:@"Rewarded ad finished, reward: %.f, name: %@", rewardAmount, rewardName]);
     sendEvent(EVENT_REWARDED, MSG_FINISHED);
   }
 
