@@ -65,6 +65,22 @@ static value appodeal_get_adid (value extAdType) {
 }
 DEFINE_PRIM (appodeal_get_adid, 1);
 
+static value appodeal_is_loaded (value adId) {
+  bool loaded = IsLoaded(val_int(adId));
+  return alloc_bool(loaded);
+}
+DEFINE_PRIM (appodeal_is_loaded, 1);
+
+static void appodeal_show_interstitial () {
+  ShowInterstitial();
+}
+DEFINE_PRIM (appodeal_show_interstitial, 0);
+
+static void appodeal_show_rewarded () {
+  ShowRewarded();
+}
+DEFINE_PRIM (appodeal_show_rewarded, 0);
+
 
 extern "C" void appodeal_main () {
   val_int(0); // Fix Neko init

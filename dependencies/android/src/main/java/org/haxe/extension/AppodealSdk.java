@@ -185,7 +185,7 @@ public class AppodealSdk extends Extension {
       @Override
       public void onInterstitialShowFailed() {
         // Called when interstitial show failed
-        dispatch(EVENT_INTERSTITIAL, MSG_FINISHED);
+        dispatch(EVENT_INTERSTITIAL, MSG_SHOW_FAILED);
       }
       @Override
       public void onInterstitialClicked() {
@@ -236,17 +236,17 @@ public class AppodealSdk extends Extension {
   */
 
   public static void ShowInterstitial() {
-    if (verboseLog) Log.i(TAG, "Interstitial requested (loaded: "+Appodeal.isLoaded(Appodeal.INTERSTITIAL)+")");
-    if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
-      Appodeal.show(Extension.mainActivity, Appodeal.INTERSTITIAL);
-    }
+    boolean loaded = Appodeal.isLoaded(Appodeal.INTERSTITIAL);
+    if (verboseLog) Log.i(TAG, "Interstitial requested (loaded: "+loaded+")");
+    if (loaded) Appodeal.show(Extension.mainActivity, Appodeal.INTERSTITIAL);
+    else dispatch(EVENT_INTERSTITIAL, MSG_SHOW_FAILED);
   }
 
   public static void ShowRewarded() {
-    if (verboseLog) Log.i(TAG, "Rewarded requested (loaded: "+Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)+")");
-    if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
-      Appodeal.show(Extension.mainActivity, Appodeal.REWARDED_VIDEO);
-    }
+    boolean loaded = Appodeal.isLoaded(Appodeal.REWARDED_VIDEO);
+    if (verboseLog) Log.i(TAG, "Rewarded requested (loaded: "+loaded+")");
+    if (loaded) Appodeal.show(Extension.mainActivity, Appodeal.REWARDED_VIDEO);
+    else dispatch(EVENT_REWARDED, MSG_SHOW_FAILED);
   }
 
   public static boolean IsLoaded(int adId) {

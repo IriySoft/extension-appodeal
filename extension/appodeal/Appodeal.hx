@@ -160,15 +160,12 @@ class Appodeal {
       return;
     }
     Log("Loading CPP functions...");
-    setVerboseLogF = cpp.Lib.load("appodeal", "appodeal_set_verbose", 1);    
-    getAdIdF = cpp.Lib.load("appodeal", "appodeal_get_adid", 1);    
     initF = cpp.Lib.load("appodeal", "appodeal_init", 4);
-
-    // TODO: implement the folowing functions:
-    //showRewardedF = cpp.Lib.load("appodeal", "appodeal_show_rewarded", 0);
-    //showInterstitialF = cpp.Lib.load("appodeal", "appodeal_show_interstitial", 0);
-    //isLoadedF = cpp.Lib.load("appodeal", "is_loaded", 1);
-
+    setVerboseLogF = cpp.Lib.load("appodeal", "appodeal_set_verbose", 1);    
+    showRewardedF = cpp.Lib.load("appodeal", "appodeal_show_rewarded", 0);
+    showInterstitialF = cpp.Lib.load("appodeal", "appodeal_show_interstitial", 0);
+    getAdIdF = cpp.Lib.load("appodeal", "appodeal_get_adid", 1);    
+    isLoadedF = cpp.Lib.load("appodeal", "appodeal_is_loaded", 1);
     functionsCreated = true;
   }
   #else

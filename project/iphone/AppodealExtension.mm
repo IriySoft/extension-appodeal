@@ -48,7 +48,7 @@
    ad presentation was too frequent according to your placement settings
    */
   - (void)interstitialDidFailToPresent {
-    sendEvent(EVENT_INTERSTITIAL, MSG_FINISHED);
+    sendEvent(EVENT_INTERSTITIAL, MSG_SHOW_FAILED);
   }
 
   /**
@@ -181,6 +181,53 @@ namespace appodeal {
       logExt(@"Set verbose log to FALSE");
       verboseLog = NO;
       [Appodeal setLogLevel:APDLogLevelOff];
+    }
+  }
+
+  UIViewController * rootCotroller() {
+    //return [[(AppDelegate *)[[UIApplication sharedApplication] delegate] window] rootViewController];
+    //return [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIWindow * keyWindow = nil;
+    for (UIWindowScene * scene in [[UIApplication sharedApplication] connectedScenes]) {
+    if ([scene activationState] == UISceneActivationStateForegroundActive) {
+      keyWindow = [scene keyWindow];
+      break;
+    }
+    if (keyWindow != nil) return [keyWindow rootViewController]
+    return nil;
+  }
+
+  void ShowInterstitial() {
+    bool loaded = IsLoaded(AppodealAdTypeInterstitial)
+    logExt([NSString stringWithFormat:@"Request Interstitial (loaded: %i)", loaded]);
+    if (loaded) {
+      UIViewController * rootViewController = rootCotroller();
+      if (rootViewController != nil) {
+        [Appodeal showAd:AppodealShowStyleInterstitial rootViewController:rootViewController];
+      } else {
+        logExt(@"Request Interstitial failed. Couldn't obtain UIViewController.");
+        sendEvent(EVENT_INTERSTITIAL, MSG_SHOW_FAILED);
+      }
+    } else {
+      logExt(@"Request Interstitial failed. Not loaded.");
+      sendEvent(EVENT_INTERSTITIAL, MSG_SHOW_FAILED);
+    }
+  }
+
+  void ShowRewarded() {
+    bool loaded = IsLoaded(AppodealAdTypeRewarded)
+    logExt([NSString stringWithFormat:@"Request Rewarded (loaded: %i)", loaded]);
+    if (loaded) {
+      UIViewController * rootViewController = rootCotroller();
+      if (rootViewController != nil) {
+        [Appodeal showAd:AppodealShowStyleRewardedVideo rootViewController:rootViewController];
+      } else {
+        logExt(@"Request Rewarded failed. Couldn't obtain UIViewController.");
+        sendEvent(EVENT_REWARDED, MSG_SHOW_FAILED);
+      }
+    } else {
+      logExt(@"Request Rewarded failed. Not loaded.");
+      sendEvent(EVENT_REWARDED, MSG_SHOW_FAILED);
     }
   }
 
