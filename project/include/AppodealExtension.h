@@ -6,10 +6,14 @@
 
 //typedef void (*AppodealCallback)(const char *event, const char *data);
 
-@interface InitDelegate:NSObject <AppodealInitializationDelegate>
+@interface ListenerDelegate:NSObject <
+    AppodealInitializationDelegate, 
+    AppodealInterstitialDelegate,
+    AppodealRewardedVideoDelegate>
 @end
 
 void logExt(NSString *message);
+void sendEvent(int typeId, int messageId);
 
 static BOOL inited = NO;
 static BOOL initializing = NO;

@@ -1,7 +1,7 @@
 #ifndef EXTENSION_APPODEAL_UTILS_H
 #define EXTENSION_APPODEAL_UTILS_H
 
-extern "C" void sendEvent(const char* type, const char* data);
+extern "C" void sendExternalEvent(const char* type, const char* data);
 
 namespace appodeal {
   int SampleMethod(int inputValue);
