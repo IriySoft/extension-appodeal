@@ -253,7 +253,7 @@ public class AppodealSdk extends Extension {
     //int adId = GetAdId(adType);
     boolean loaded = Appodeal.isLoaded(adId);
     if (verboseLog) Log.i(TAG, "IsLoaded ad id "+adId+": "+loaded);
-    return Appodeal.isLoaded(adId);
+    return loaded;
   }
 
   /**

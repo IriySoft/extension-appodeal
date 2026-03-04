@@ -6,10 +6,8 @@
 
 //typedef void (*AppodealCallback)(const char *event, const char *data);
 
-@interface ListenerDelegate:NSObject <
-    AppodealInitializationDelegate, 
-    AppodealInterstitialDelegate,
-    AppodealRewardedVideoDelegate>
+@interface ListenerDelegate:NSObject 
+  <AppodealInitializationDelegate, AppodealInterstitialDelegate, AppodealRewardedVideoDelegate>
 @end
 
 void logExt(NSString *message);

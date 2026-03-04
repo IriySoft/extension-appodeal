@@ -33,6 +33,7 @@
    Method called if interstitial mediation failed
    */
   - (void)interstitialDidFailToLoadAd {
+    logExt(@"iDFTL");
     sendEvent(EVENT_INTERSTITIAL, MSG_LOAD_FAILED);
   }
 
@@ -40,6 +41,7 @@
    Method called if loaded interstital ad expired by timeout
    */
   - (void)interstitialDidExpired {
+    logExt(@"iDEx");
     sendEvent(EVENT_INTERSTITIAL, MSG_EXPIRED);
   }
 
@@ -48,6 +50,7 @@
    ad presentation was too frequent according to your placement settings
    */
   - (void)interstitialDidFailToPresent {
+    logExt(@"iDFTP");
     sendEvent(EVENT_INTERSTITIAL, MSG_SHOW_FAILED);
   }
 
@@ -55,6 +58,7 @@
    Method called when interstitial displays on screen
    */
   - (void)interstitialWillPresent {
+    logExt(@"iWP");
     sendEvent(EVENT_INTERSTITIAL, MSG_SHOWN);
   }
 
@@ -62,6 +66,7 @@
    Method called after interstitial leaves the screen
    */
   - (void)interstitialDidDismiss {
+    logExt(@"iDD");
     sendEvent(EVENT_INTERSTITIAL, MSG_FINISHED);
   }
 
@@ -69,6 +74,7 @@
    Method called when user taps on interstitial
    */
   - (void)interstitialDidClick {
+    logExt(@"iDC");
     sendEvent(EVENT_INTERSTITIAL, MSG_CLICKED);
   }
   
