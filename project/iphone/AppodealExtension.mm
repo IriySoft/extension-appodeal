@@ -186,19 +186,23 @@ namespace appodeal {
 
   UIViewController * rootCotroller() {
     //return [[(AppDelegate *)[[UIApplication sharedApplication] delegate] window] rootViewController];
-    //return [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    return [[[UIApplication sharedApplication] keyWindow] rootViewController];
+
+    // iOS 15+ code blow
+   /*
     UIWindow * keyWindow = nil;
     for (UIWindowScene * scene in [[UIApplication sharedApplication] connectedScenes]) {
-    if ([scene activationState] == UISceneActivationStateForegroundActive) {
-      keyWindow = [scene keyWindow];
-      break;
+      if ([scene activationState] == UISceneActivationStateForegroundActive) {
+        keyWindow = [scene keyWindow];
+        break;
+      }
     }
-    if (keyWindow != nil) return [keyWindow rootViewController]
-    return nil;
+    if (keyWindow != nil) return [keyWindow rootViewController];
+    return nil;*/
   }
 
   void ShowInterstitial() {
-    bool loaded = IsLoaded(AppodealAdTypeInterstitial)
+    bool loaded = IsLoaded(AppodealAdTypeInterstitial);
     logExt([NSString stringWithFormat:@"Request Interstitial (loaded: %i)", loaded]);
     if (loaded) {
       UIViewController * rootViewController = rootCotroller();
@@ -215,7 +219,7 @@ namespace appodeal {
   }
 
   void ShowRewarded() {
-    bool loaded = IsLoaded(AppodealAdTypeRewarded)
+    bool loaded = IsLoaded(AppodealAdTypeRewardedVideo);
     logExt([NSString stringWithFormat:@"Request Rewarded (loaded: %i)", loaded]);
     if (loaded) {
       UIViewController * rootViewController = rootCotroller();
@@ -232,19 +236,21 @@ namespace appodeal {
   }
 
   bool IsLoaded(int adTypeInt) {
+    bool loaded = false;
     AppodealAdType adType = (AppodealAdType) adTypeInt;
     switch (adType) {
       case AppodealAdTypeInterstitial:
-        if ([Appodeal isReadyForShowWithStyle: AppodealShowStyleInterstitial]) return true;
+        if ([Appodeal isReadyForShowWithStyle: AppodealShowStyleInterstitial]) loaded = true;
         break;
 
       case AppodealAdTypeRewardedVideo:
-        if ([Appodeal isReadyForShowWithStyle: AppodealShowStyleRewardedVideo]) return true;
+        if ([Appodeal isReadyForShowWithStyle: AppodealShowStyleRewardedVideo]) loaded = true;
         break;
 
       //TODO: add other ad types check
     }
-    return false;
+    logExt([NSString stringWithFormat:@"Check loaded for %i: %i", adTypeInt, loaded]);
+    return loaded;
   }
 
   int GetAdId(int adType) {
@@ -257,7 +263,7 @@ namespace appodeal {
       case 4: adId = (int) AppodealAdTypeMREC;               break;
       case 5: adId = (int) AppodealAdTypeNonSkippableVideo;  break;
     }
-    logExt([NSString stringWithFormat:@"Ad ID for type %i is: %i)", adType, adId]);
+    logExt([NSString stringWithFormat:@"Ad ID for type %i is: %i", adType, adId]);
     return adId;
   }
 

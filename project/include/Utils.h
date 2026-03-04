@@ -8,6 +8,9 @@ namespace appodeal {
   void InitAppodeal(const char *appId, int adTypes, bool testing);
   void SetVerboseLog(bool isVerbose);
   int GetAdId(int adType);
+  void ShowInterstitial();
+  void ShowRewarded();
+  bool IsLoaded(int adTypeInt);
 }
 
 #endif

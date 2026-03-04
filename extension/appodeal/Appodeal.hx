@@ -119,7 +119,7 @@ class Appodeal {
     }
     var adId: Int = GetAdId(type);
     Log("Check loaded for ad type "+type+" (id: "+adId+")");
-    return isLoadedF(type);
+    return isLoadedF(adId);
   }
 
   public static function ShowInterstitial(): Void {
