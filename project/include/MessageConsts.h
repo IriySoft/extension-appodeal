@@ -1,6 +1,7 @@
 #ifndef EXTENSION_APPODEAL_MESSAGE_CONSTS_H
 #define EXTENSION_APPODEAL_MESSAGE_CONSTS_H
 
+const int EVENT_UNKNOWN         = -1;
 const int EVENT_INIT         = 0;
 const int EVENT_INTERSTITIAL = 1;
 const int EVENT_REWARDED     = 2;

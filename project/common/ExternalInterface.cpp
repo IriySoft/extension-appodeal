@@ -16,15 +16,15 @@ using namespace appodeal;
 
 //AutoGCRoot* extCallback = NULL;
 value * extCallback = NULL;
+bool verbose_mode = false;
 
 extern "C" void sendExternalEvent(const char *event, const char *data) {
-  //std::cout << "Appodeal CPP Event: "<<event<<", data: "<<data<<"\n";
+  if (verbose_mode) std::cout << "AppodealExt CPP Event: "<<event<<", data: "<<data<<"\n";
   if (extCallback != NULL && val_is_function(*extCallback)) {
     //val_call2(extCallback->get(), alloc_string(event), alloc_string(data));
     val_call2(*extCallback, alloc_string(event), alloc_string(data));
   }
 }
-
 
 static void appodeal_init (value appId, value adTypes, value testing, value callback) {
   //extCallback = new AutoGCRoot(callback);
@@ -38,23 +38,16 @@ static void appodeal_init (value appId, value adTypes, value testing, value call
     //val_call2(*extCallback, alloc_string("EVT"), alloc_string("DT"));
     //sendExternalEvent("Init", "Test");
   } else {
-    std::cout << "Appodeal CPP: Warning! Callback value is NOT a function, no callbacks will be triggered!\n";
+    std::cout << "AppodealExt CPP: Warning! Callback value is NOT a function, no callbacks will be triggered!\n";
   }
   InitAppodeal(val_string(appId), val_int(adTypes), val_bool(testing));
 }
 DEFINE_PRIM (appodeal_init, 4);
 
 
-
-static value appodeal_sample_method (value inputValue) {
-  int returnValue = SampleMethod(val_int(inputValue));
-  return alloc_int(returnValue);
-}
-DEFINE_PRIM (appodeal_sample_method, 1);
-
-
 static void appodeal_set_verbose (value verboseMode) {
-  SetVerboseLog(val_bool(verboseMode));
+  verbose_mode = val_bool(verboseMode);
+  SetVerboseLog(verbose_mode);
 }
 DEFINE_PRIM (appodeal_set_verbose, 1);
 
