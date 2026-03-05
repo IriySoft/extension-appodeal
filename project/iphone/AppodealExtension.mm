@@ -13,7 +13,6 @@
     inited = YES;
     initializing = NO;
     sendEvent(EVENT_INIT, MSG_SUCCESS);
-    //[self release]
   }
 
   // ======================= Interstitial =======================
@@ -33,15 +32,14 @@
    Method called if interstitial mediation failed
    */
   - (void)interstitialDidFailToLoadAd {
-    logExt(@"iDFTL");
     sendEvent(EVENT_INTERSTITIAL, MSG_LOAD_FAILED);
   }
 
   /**
    Method called if loaded interstital ad expired by timeout
    */
+
   - (void)interstitialDidExpired {
-    logExt(@"iDEx");
     sendEvent(EVENT_INTERSTITIAL, MSG_EXPIRED);
   }
 
@@ -50,7 +48,6 @@
    ad presentation was too frequent according to your placement settings
    */
   - (void)interstitialDidFailToPresent {
-    logExt(@"iDFTP");
     sendEvent(EVENT_INTERSTITIAL, MSG_SHOW_FAILED);
   }
 
@@ -58,7 +55,6 @@
    Method called when interstitial displays on screen
    */
   - (void)interstitialWillPresent {
-    logExt(@"iWP");
     sendEvent(EVENT_INTERSTITIAL, MSG_SHOWN);
   }
 
@@ -66,15 +62,14 @@
    Method called after interstitial leaves the screen
    */
   - (void)interstitialDidDismiss {
-    logExt(@"iDD");
-    sendEvent(EVENT_INTERSTITIAL, MSG_FINISHED);
+    sendEvent(EVENT_INTERSTITIAL, MSG_CLOSED);
   }
 
   /**
    Method called when user taps on interstitial
    */
+
   - (void)interstitialDidClick {
-    logExt(@"iDC");
     sendEvent(EVENT_INTERSTITIAL, MSG_CLICKED);
   }
   
@@ -143,11 +138,6 @@ void sendEvent(int typeId, int messageId) {
 
 namespace appodeal {
 
-  int SampleMethod(int inputValue) {
-    logExt(@"Sample Appodeal!");
-    return inputValue * 100;
-  }
-
   void InitAppodeal(const char *appId, int adTypesInt, bool testing) {
     logExt(@"Init!");
     NSString *_appId = [NSString stringWithUTF8String:appId];
@@ -166,13 +156,14 @@ namespace appodeal {
       // Optional delegate for initialization completion
       [Appodeal setInitializationDelegate:listener];
 
-      if (adTypes & AppodealAdTypeInterstitial != 0) [Appodeal setInterstitialDelegate:listener];
-      if (adTypes & AppodealAdTypeRewardedVideo != 0) [Appodeal setRewardedVideoDelegate:listener];
 
       /// Any other pre-initialization
       /// app specific logic
       logExt(@"Init - Appodeal initialize...");
       [Appodeal initializeWithApiKey:_appId types:adTypes];
+
+      if (adTypes & AppodealAdTypeRewardedVideo != 0) [Appodeal setRewardedVideoDelegate:listener];
+      if (adTypes & AppodealAdTypeInterstitial != 0) [Appodeal setInterstitialDelegate:listener];
     } else {
       logExt([NSString stringWithFormat:@"Init - won't init twice (inited: %i initializing: %i)", inited, initializing]);
     }
@@ -194,8 +185,8 @@ namespace appodeal {
     //return [[(AppDelegate *)[[UIApplication sharedApplication] delegate] window] rootViewController];
     return [[[UIApplication sharedApplication] keyWindow] rootViewController];
 
-    // iOS 15+ code blow
-   /*
+    // iOS 15+ code below
+    /*
     UIWindow * keyWindow = nil;
     for (UIWindowScene * scene in [[UIApplication sharedApplication] connectedScenes]) {
       if ([scene activationState] == UISceneActivationStateForegroundActive) {
@@ -204,7 +195,8 @@ namespace appodeal {
       }
     }
     if (keyWindow != nil) return [keyWindow rootViewController];
-    return nil;*/
+    return nil;
+    */
   }
 
   void ShowInterstitial() {
