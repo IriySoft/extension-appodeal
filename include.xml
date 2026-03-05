@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
   
-  <ndll name="appodeal" unless="android" />
-  
-  <!-- Use the following for an Android Java extension, not needed otherwise -->
-  
   <dependency name="extension-appodeal" path="dependencies/android" if="android" />
+
   <template path="template" if="mobile" />
   <android extension="org.haxe.extension.AppodealSdk" />
 
+    <!-- 
+      Unless you disable AdMob ads by setting APPODEAL_EXCLUDE_ADMOB, 
+      you have to add AdMob ids for iOS and Android as folows,
+      otherwise the app will crush on startup:
+
+      <setenv name="ADMOB_APPID" value="ca-app-pub-1333919472996821~2057729034" if="android"/>
+      <setenv name="ADMOB_APPID" value="ca-app-pub-3940256099942544~1458002511" if="ios"/>
+
+      To disable AdMob ads instead add this to the build command:
+
+      -D APPODEAL_EXCLUDE_ADMOB
+
+      or set it in your project .xml like this:
+
+      <haxedef name="APPODEAL_EXCLUDE_ADMOB"/>
+    -->
+
   <section if="ios">
-
-    <!--dependency name="JavaScriptCore.framework" />
-    <dependency name="AppTrackingTransparency.framework" /-->
-    <!--set name="FRAMEWORK_DIR" value="ios-arm64" unless="simulator"/>
-    <set name="FRAMEWORK_DIR" value="ios-arm64_x86_64-simulator" if="simulator"/-->
-
     <ndll name="appodeal"/>
     <include path="appodealframeworks.xml" />
     <include path="admobframeworks.xml" unless="APPODEAL_EXCLUDE_ADMOB"/>
     <ios linker-flags="-ObjC" />
     <ios linker-flags="$(inherited)" />
-    <config:ios deployment="13.0" />
+    <config:ios deployment="15.0" />
   </section>
 </project>
