@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <dependency path="dependencies/ios/AppLovinMediationAmazonAdMarketplaceAdapter.xcframework"/>
+  <dependency path="dependencies/ios/AppodealAmazonAdapter.xcframework"/>
+  <dependency path="dependencies/ios/BidonAdapterAmazon.xcframework"/>
+</project>
