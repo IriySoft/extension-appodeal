@@ -3,7 +3,6 @@
   <dependency path="dependencies/ios/AdjustPurchase.xcframework"/>
   <dependency path="dependencies/ios/AdjustSdk.xcframework"/>
   <dependency path="dependencies/ios/AdjustSigSdk.xcframework" embed="true"/>
-  <dependency path="dependencies/ios/AppLovinMediationAmazonAdMarketplaceAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppLovinMediationBidMachineAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppLovinMediationBidonAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppLovinMediationBigoAdsAdapter.xcframework"/>
@@ -44,7 +43,6 @@
   <dependency path="dependencies/ios/AppMetricaSynchronization.xcframework"/>
   <dependency path="dependencies/ios/Appodeal.xcframework"/>
   <dependency path="dependencies/ios/AppodealAdjustAdapter.xcframework"/>
-  <dependency path="dependencies/ios/AppodealAmazonAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppodealAppLovinAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppodealAppLovinMAXAdapter.xcframework"/>
   <dependency path="dependencies/ios/AppodealAppsFlyerAdapter.xcframework"/>
@@ -72,7 +70,6 @@
   <dependency path="dependencies/ios/BidMachine.xcframework"/>
   <dependency path="dependencies/ios/BidMachineIronSourceCustomAdapter.xcframework"/>
   <dependency path="dependencies/ios/Bidon.xcframework"/>
-  <dependency path="dependencies/ios/BidonAdapterAmazon.xcframework"/>
   <dependency path="dependencies/ios/BidonAdapterBidMachine.xcframework"/>
   <dependency path="dependencies/ios/BidonAdapterBigoAds.xcframework"/>
   <dependency path="dependencies/ios/BidonAdapterChartboost.xcframework"/>

@@ -6,32 +6,36 @@
   <template path="template" if="mobile" />
   <android extension="org.haxe.extension.AppodealSdk" />
 
-    <!-- 
-      Unless you disable AdMob ads by setting APPODEAL_EXCLUDE_ADMOB, 
-      you have to add AdMob ids for iOS and Android as folows,
-      otherwise the app will crush on startup:
+  <!-- 
+    Unless you disable AdMob ads by setting APPODEAL_EXCLUDE_ADMOB, 
+    you have to add AdMob ids for iOS and Android as follows,
+    otherwise the app will crush on start-up:
 
-      <setenv name="ADMOB_APPID" value="ca-app-pub-1333919472996821~2057729034" if="android"/>
-      <setenv name="ADMOB_APPID" value="ca-app-pub-3940256099942544~1458002511" if="ios"/>
+    <setenv name="ADMOB_APPID" value="ca-app-pub-1333919472996821~2057729034" if="android"/>
+    <setenv name="ADMOB_APPID" value="ca-app-pub-3940256099942544~1458002511" if="ios"/>
 
-      To disable AdMob ads instead add this to the build command:
+    To disable AdMob ads instead add this to the build command:
 
-      -D APPODEAL_EXCLUDE_ADMOB
+    -D APPODEAL_EXCLUDE_ADMOB
 
-      or set it in your project .xml like this:
+    or set it in your project .xml like this:
 
-      <haxedef name="APPODEAL_EXCLUDE_ADMOB"/>
-    -->
+    <haxedef name="APPODEAL_EXCLUDE_ADMOB"/>
 
+    Amazon ads can be disabled with APPODEAL_EXCLUDE_AMAZON in the same way.
+    I had to disable Amazon when disabling AdMob, because the Android app crashed -
+    looks like Amazon ads (or some of the adapters thereof) uses AdMob silently.
+  -->
+
+  <haxedef name="APPODEAL_EXCLUDE_ADMOB" unless="ADMOB_APPID"/>
   <setenv name="APPODEAL_EXCLUDE_ADMOB" if="APPODEAL_EXCLUDE_ADMOB"/>
-  <setenv name="APPODEAL_EXCLUDE_AMAZON" if="APPODEAL_EXCLUDE_AMAZON"/>
+  <!--setenv name="APPODEAL_EXCLUDE_AMAZON" if="APPODEAL_EXCLUDE_AMAZON"/-->
 
   <section if="ios">
     <ndll name="appodeal"/>
-    <haxedef name="APPODEAL_EXCLUDE_ADMOB" unless="ADMOB_APPID"/>
-    <include path="./appodealframeworks.xml" />
-    <!--include path="./admobframeworks.xml" /-->
+    <include path="appodealframeworks.xml" />
     <include path="admobframeworks.xml" unless="APPODEAL_EXCLUDE_ADMOB"/>
+    <include path="amazonframeworks.xml" unless="APPODEAL_EXCLUDE_AMAZON"/>
     <ios linker-flags="-ObjC" />
     <ios linker-flags="$(inherited)" />
     <config:ios deployment="15.0" />
