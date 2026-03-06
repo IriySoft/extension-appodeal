@@ -182,4 +182,8 @@
   <dependency path="dependencies/ios/VGSLUI.xcframework"/>
   <dependency path="dependencies/ios/VungleAdsSDK.xcframework"/>
   <dependency path="dependencies/ios/YandexMobileAds.xcframework"/>
+  <dependency path="dependencies/ios/GoogleUtilities.xcframework"/>
+  <dependency path="dependencies/ios/GoogleAdsOnDeviceConversion.xcframework"/>
+  <dependency path="dependencies/ios/GoogleAppMeasurement.xcframework"/>
+  <dependency path="dependencies/ios/GoogleAppMeasurementIdentitySupport.xcframework"/>
 </project>
