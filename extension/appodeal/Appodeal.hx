@@ -205,7 +205,7 @@ private class CallbackHandler #if (lime >= "8.0.0") implements lime.system.JNI.J
   @:runOnMainThread
   #end
   public function onStatus(event: String, data: String): Void  {
-    Log("Callback: ('"+event+"'), ('"+data+"')");
+    //Log("Callback: ('"+event+"'), ('"+data+"')");
     Appodeal.dispatchEvent(event, data);
   }
 }
