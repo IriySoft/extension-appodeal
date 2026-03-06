@@ -25,10 +25,13 @@
 
   <section if="ios">
     <ndll name="appodeal"/>
-    <include path="appodealframeworks.xml" />
+    <haxedef name="APPODEAL_EXCLUDE_ADMOB" unless="ADMOB_APPID"/>
+    <include path="./appodealframeworks.xml" />
+    <!--include path="./admobframeworks.xml" /-->
     <include path="admobframeworks.xml" unless="APPODEAL_EXCLUDE_ADMOB"/>
     <ios linker-flags="-ObjC" />
     <ios linker-flags="$(inherited)" />
     <config:ios deployment="15.0" />
   </section>
+  
 </project>
