@@ -23,6 +23,9 @@
       <haxedef name="APPODEAL_EXCLUDE_ADMOB"/>
     -->
 
+  <setenv name="APPODEAL_EXCLUDE_ADMOB" if="APPODEAL_EXCLUDE_ADMOB"/>
+  <setenv name="APPODEAL_EXCLUDE_AMAZON" if="APPODEAL_EXCLUDE_AMAZON"/>
+
   <section if="ios">
     <ndll name="appodeal"/>
     <haxedef name="APPODEAL_EXCLUDE_ADMOB" unless="ADMOB_APPID"/>
