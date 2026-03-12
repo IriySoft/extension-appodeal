@@ -12,8 +12,6 @@
     <compilerflag value="-DHXCPP_GC_CHECK_POINTER"/>
 
     <file name="common/ExternalInterface.cpp"/>
-    <!--file name="common/extension-appodeal.cpp"/-->
-    
   </files>
 
   <files id="iphone">
@@ -21,12 +19,16 @@
     <compilerflag value="-I${haxelib:extension-appodeal}/project/include" />
     <compilerflag value="-DHXCPP_GC_CHECK_POINTER"/>
 
+    <compilerflag value="-DAPPODEAL_INIT_FIREBASE" if="APPODEAL_INIT_FIREBASE"/>
+
     <section if="iphoneos">
-      <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64/" if="HXCPP_ARM64" />
+      <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64/"/>
+      <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/FirebaseCore.xcframework/ios-arm64/" if="APPODEAL_INIT_FIREBASE"/>
     </section>
 
     <section if="iphonesim || simulator">
       <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/Appodeal.xcframework/ios-arm64_x86_64-simulator/"/>
+      <compilerflag value="-F${haxelib:extension-appodeal}/dependencies/ios/FirebaseCore.xcframework/ios-arm64_x86_64-simulator/" if="APPODEAL_INIT_FIREBASE"/>
     </section>
 
     <compilerflag value="-IiPhone/include"/>
@@ -48,6 +50,7 @@
     <outdir name="../ndll/${BINDIR}"/>
     <ext value=".ndll" if="windows || mac || linux"/>
     <vflag name="-framework" value="Appodeal" />
+    <vflag name="-framework" value="FirebaseCore" if="APPODEAL_INIT_FIREBASE"/>
     <files id="common"/>
     <files id="iphone" if="iphone"/>
   </target>

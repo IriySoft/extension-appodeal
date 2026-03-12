@@ -5,6 +5,10 @@
 #import <Appodeal/Appodeal.h>
 #import <dispatch/dispatch.h>
 
+#ifdef APPODEAL_INIT_FIREBASE
+#import <FirebaseCore/FirebaseCore.h>
+#endif
+
 @implementation ListenerDelegate
   // =========================== Init =========================== 
   - (void)appodealSDKDidInitialize {
@@ -143,6 +147,10 @@ namespace appodeal {
     NSString *_appId = [NSString stringWithUTF8String:appId];
     logExt([NSString stringWithFormat:@"Init with ID %@, testing: %i", _appId, testing]);
     if (!inited && !initializing) {
+      #ifdef APPODEAL_INIT_FIREBASE
+      [FIRApp configure];
+      #endif
+
       applicationId = _appId;
       initializing = YES;
       AppodealAdType adTypes = (AppodealAdType) adTypesInt; //AppodealAdTypeInterstitial | AppodealAdTypeRewardedVideo;
