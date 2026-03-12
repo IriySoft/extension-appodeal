@@ -47,7 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-::ADDL_PBX_COPY_FILES_BUILD_PHASE::
+::if (ADDL_PBX_COPY_FILES_BUILD_PHASE != null)::::ADDL_PBX_COPY_FILES_BUILD_PHASE::::end::
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -246,7 +246,7 @@
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
-				1D60588F0D05DD3D006BFB54 /* Frameworks */,::ADDL_PBX_BUILD_PHASE_LIST::
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,::if (ADDL_PBX_BUILD_PHASE_LIST != null)::::ADDL_PBX_BUILD_PHASE_LIST::::end::
 			);
 			buildRules = (
 			);
@@ -465,7 +465,7 @@
 				GCC_PREFIX_HEADER = "::APP_FILE::/::APP_FILE::-Prefix.pch";
 				INFOPLIST_FILE = "::APP_FILE::/::APP_FILE::-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = ::DEPLOYMENT::;
-				::ADDL_PBX_RUNPATH_SEARCH_PATHS::
+				::if(ADDL_PBX_RUNPATH_SEARCH_PATHS != null)::::ADDL_PBX_RUNPATH_SEARCH_PATHS::::end::
 				"LIBRARY_SEARCH_PATHS[arch=arm64]" = (
 					"$(inherited)",
 					"\"$(SRCROOT)/::APP_FILE::/lib/arm64-debug\"",
@@ -527,7 +527,7 @@
 				GCC_PREFIX_HEADER = "::APP_FILE::/::APP_FILE::-Prefix.pch";
 				INFOPLIST_FILE = "::APP_FILE::/::APP_FILE::-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = ::DEPLOYMENT::;
-				::ADDL_PBX_RUNPATH_SEARCH_PATHS::
+				::if (ADDL_PBX_RUNPATH_SEARCH_PATHS != null)::::ADDL_PBX_RUNPATH_SEARCH_PATHS::::end::
 				"LIBRARY_SEARCH_PATHS[arch=arm64]" = (
 					"$(inherited)",
 					"\"$(SRCROOT)/::APP_FILE::/lib/arm64\"",
