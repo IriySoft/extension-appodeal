@@ -38,7 +38,7 @@
     <include path="admobframeworks.xml" unless="APPODEAL_EXCLUDE_ADMOB"/>
     <include path="amazonframeworks.xml" unless="APPODEAL_EXCLUDE_AMAZON"/>
     <ios linker-flags="-ObjC" />
-    <ios linker-flags="$(inherited)" />
+    <!--ios linker-flags="$(inherited)" /-->
     <config:ios deployment="15.0" />
   </section>
   
