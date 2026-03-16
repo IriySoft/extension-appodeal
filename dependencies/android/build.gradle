@@ -122,6 +122,7 @@ dependencies {
   implementation "com.unity3d.ads-mediation:admob-adapter:5.2.0"
   implementation "com.applovin.mediation:google-ad-manager-adapter:24.7.0.0"
   ::end::  
+
   ::if (ENV_APPODEAL_EXCLUDE_AMAZON == null)::
   implementation "io.bidmachine:ads.networks.amazon:3.5.0.20"
   implementation "org.bidon:amazon-adapter:11.1.1.0"

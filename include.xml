@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
   
-  <dependency name="extension-appodeal" path="dependencies/android" if="android" />
-
-  <template path="template" if="mobile" />
   <android extension="org.haxe.extension.AppodealSdk" />
 
   <!-- 
@@ -14,23 +11,26 @@
     <setenv name="ADMOB_APPID" value="ca-app-pub-1333919472996821~2057729034" if="android"/>
     <setenv name="ADMOB_APPID" value="ca-app-pub-3940256099942544~1458002511" if="ios"/>
 
-    To disable AdMob ads instead add this to the build command:
+    To disable AdMob ads instead, set APPODEAL_EXCLUDE_ADMOB environment variable:
 
-    -D APPODEAL_EXCLUDE_ADMOB
-
-    or set it in your project .xml like this:
-
-    <haxedef name="APPODEAL_EXCLUDE_ADMOB"/>
+    <setenv name="APPODEAL_EXCLUDE_ADMOB"/>
 
     Amazon ads can be disabled with APPODEAL_EXCLUDE_AMAZON in the same way.
     I had to disable Amazon when disabling AdMob, because the Android app crashed -
     looks like Amazon ads (or some of the adapters thereof) uses AdMob silently.
+
+    Set APPODEAL_INIT_FIREBASE to make the extension inatialize Firebase - this
+    requires adding google-services.json (Android) and GoogleService-Info.plist (iOS)
+    to your app template
   -->
 
   <haxedef name="APPODEAL_EXCLUDE_ADMOB" unless="ADMOB_APPID"/>
   <setenv name="APPODEAL_EXCLUDE_ADMOB" if="APPODEAL_EXCLUDE_ADMOB"/>
   <setenv name="APPODEAL_EXCLUDE_AMAZON" if="APPODEAL_EXCLUDE_AMAZON"/> 
   <setenv name="APPODEAL_INIT_FIREBASE" if="APPODEAL_INIT_FIREBASE"/>
+
+  <template path="template" if="mobile" />
+  <dependency name="extension-appodeal" path="dependencies/android" if="android" />
 
   <section if="ios">
     <ndll name="appodeal"/>
