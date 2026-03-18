@@ -3,7 +3,7 @@
 <plist version="1.0">
  <dict>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string>public.app-category.games</string>
 	::if (ENV_APPODEAL_EXCLUDE_ADMOB == null)::<key>GADApplicationIdentifier</key>
 	<string>::ENV_ADMOB_APPID::</string>::end::
 	<key>NSUserTrackingUsageDescription</key>

@@ -368,6 +368,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				::end::
+                CURRENT_PROJECT_VERSION = "::APP_BUILD_NUMBER::";
+                INFOPLIST_KEY_CFBundleDisplayName = "::APP_TITLE::";
+                INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+                MARKETING_VERSION = "::APP_VERSION::";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "::config.ios.identity::";
 				::if (IOS_PROVISIONING_PROFILE)::PROVISIONING_PROFILE = "::IOS_PROVISIONING_PROFILE::";::end::
 				COPY_PHASE_STRIP = NO;
@@ -425,6 +429,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				::end::
+                CURRENT_PROJECT_VERSION = "::APP_BUILD_NUMBER::";
+                INFOPLIST_KEY_CFBundleDisplayName = "::APP_TITLE::";
+                INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+                MARKETING_VERSION = "::APP_VERSION::";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "::config.ios.identity::";
 				::if (IOS_PROVISIONING_PROFILE)::PROVISIONING_PROFILE = "::IOS_PROVISIONING_PROFILE::";::end::
 				/* COMPRESS_PNG_FILES = NO; */
