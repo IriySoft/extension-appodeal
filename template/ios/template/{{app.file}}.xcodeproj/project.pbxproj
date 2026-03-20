@@ -521,7 +521,9 @@
                 SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
                 SUPPORTS_MACCATALYST = NO;
                 SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+                SUPPORTS_XR = NO;
                 TARGETED_DEVICE_FAMILY = "1,2";
+                INFOPLIST_KEY_CFBundleDisplayName = "::APP_TITLE::";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -580,8 +582,10 @@
 				SWIFT_VERSION = 6.0;
                 SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
                 SUPPORTS_MACCATALYST = NO;
+                SUPPORTS_XR = NO;
                 SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
                 TARGETED_DEVICE_FAMILY = "1,2";
+                INFOPLIST_KEY_CFBundleDisplayName = "::APP_TITLE::";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
