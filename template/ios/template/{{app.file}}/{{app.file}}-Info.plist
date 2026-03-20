@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
  <dict>
+    <key>UIApplicationSceneManifest</key>
+    <dict>
+        <key>UIApplicationSupportsMultipleScenes</key>
+        <false/>
+        <key>UISceneConfigurations</key>
+        <dict/>
+    </dict>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.games</string>
 	::if (ENV_APPODEAL_EXCLUDE_ADMOB == null)::<key>GADApplicationIdentifier</key>
@@ -10,8 +17,39 @@
 	<string>${PRODUCT_NAME} needs your advertising identifier to provide personalised advertising experience tailored to you</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>${PRODUCT_NAME} needs your calendar to provide personalised advertising experience tailored to you</string>
-  <key>SKAdNetworkItems</key>
-    <array>
+<key>AdAttributionKitItems</key>
+<array>
+    <dict>
+        <key>AdAttributionKitIdentifier</key>
+        <string>6lz2ygh3q6.adattributionkit</string>
+    </dict>
+    <dict>
+        <key>AdAttributionKitIdentifier</key>
+        <string>77y3x8wds4.adattributionkit</string>
+    </dict>
+    <dict>
+        <key>AdAttributionKitIdentifier</key>
+        <string>m2jqnlggk3.adattributionkit</string>
+    </dict>
+    <dict>
+        <key>AdAttributionKitIdentifier</key>
+        <string>p2jcxbzuuv.adattributionkit</string>
+    </dict>
+    <dict>
+        <key>AdAttributionKitIdentifier</key>
+        <string>pg7ctvrt6f.adattributionkit</string>
+    </dict>
+    <dict>
+        <key>AdAttributionKitIdentifier</key>
+        <string>raa6f494kr.adattributionkit</string>
+    </dict>
+    <dict>
+        <key>AdAttributionKitIdentifier</key>
+        <string>thzdn4h5nc.adattributionkit</string>
+    </dict>
+</array>
+<key>SKAdNetworkItems</key>
+<array>
     <dict>
         <key>SKAdNetworkIdentifier</key>
         <string>22mmun2rn5.skadnetwork</string>
@@ -1036,7 +1074,7 @@
         <key>SKAdNetworkIdentifier</key>
         <string>zq492l623r.skadnetwork</string>
     </dict>
-    </array>
+</array>
     <key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	::if (languages != null)::<key>CFBundleLocalizations</key>
