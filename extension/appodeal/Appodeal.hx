@@ -79,7 +79,7 @@ class Appodeal {
 
     #if android
     initF(gameID, types, testing, new CallbackHandler());
-    inited = true;
+    //inited = true;
     #elseif ios
     //sample_method = cpp.Lib.load("appodeal", "appodeal_sample_method", 1);
     //var result: Int = sample_method(2);
@@ -92,7 +92,7 @@ class Appodeal {
     /*init_c = cpp.Lib.load("appodeal", "appodeal_init", 4);
     Log("Call init with id: " + gameID + "(" + (init_c!=null) + ")");
     init_c(gameID, types, testing, onAppodealStatus);*/
-    inited = true;
+    //inited = true;
     #end
 
   }
