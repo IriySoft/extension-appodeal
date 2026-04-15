@@ -39,6 +39,7 @@
     <include path="amazonframeworks.xml" unless="APPODEAL_EXCLUDE_AMAZON"/>
     <ios linker-flags="-ObjC" />
     <!--ios linker-flags="$(inherited)" /-->
+    <dependency name="JavaScriptCore.framework" />
     <config:ios deployment="15.0" />
   </section>
   
