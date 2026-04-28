@@ -22,7 +22,7 @@ dependencies {
   implementation("androidx.annotation:annotation:1.9.1")
 
   // Appodeal
-  implementation "com.appodeal.ads.sdk:core:4.0.0"
+  implementation "com.appodeal.ads.sdk:core:4.1.0"
   // BidMachine
   implementation "io.bidmachine:ads.networks.mintegral:3.5.0.16"
   implementation "io.bidmachine:ads.networks.my_target:3.5.0.21"
