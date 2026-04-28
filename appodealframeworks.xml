@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
+
+  <!-- Removed in version 4.1.0-->
+  <!--dependency path="dependencies/ios/BidMachineIronSourceCustomAdapter.xcframework"/-->
+
   <dependency path="dependencies/ios/AdjustPurchase.xcframework"/>
   <dependency path="dependencies/ios/AdjustSdk.xcframework"/>
   <dependency path="dependencies/ios/AdjustSigSdk.xcframework" embed="true"/>
@@ -68,7 +72,6 @@
   <dependency path="dependencies/ios/AppsFlyerLib.xcframework"/>
   <dependency path="dependencies/ios/ATOM.xcframework" embed="true"/>
   <dependency path="dependencies/ios/BidMachine.xcframework"/>
-  <dependency path="dependencies/ios/BidMachineIronSourceCustomAdapter.xcframework"/>
   <dependency path="dependencies/ios/Bidon.xcframework"/>
   <dependency path="dependencies/ios/BidonAdapterBidMachine.xcframework"/>
   <dependency path="dependencies/ios/BidonAdapterBigoAds.xcframework"/>
