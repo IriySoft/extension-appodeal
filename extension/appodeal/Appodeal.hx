@@ -93,6 +93,8 @@ class Appodeal {
     Log("Call init with id: " + gameID + "(" + (init_c!=null) + ")");
     init_c(gameID, types, testing, onAppodealStatus);*/
     //inited = true;
+    #elseif html5
+
     #end
 
   }
@@ -171,7 +173,18 @@ class Appodeal {
   }
   #else
   private static function createFunctions(): Void {
-    Log("No functions will be created for this target.");
+    if (functionsCreated) {
+      Log("createFunctions - CPP Functions are already loaded!");
+      return;
+    }
+    Log("Creatinfg dummy functions...");
+    initF = (_, _, _, _) -> Log("Init called");
+    setVerboseLogF = (_) -> Log("Set Verbose called");
+    showRewardedF = () -> Log("Show Rewarded");
+    showInterstitialF = () -> Log("Show Interstitial");
+    getAdIdF = (_) -> Log("getAdId called");
+    isLoadedF = (_) -> Log("IsLoaded called");
+    functionsCreated = true;
   }
   #end
 
