@@ -1,12 +1,15 @@
 buildscript {
-	repositories {
-		mavenCentral()
-		google()
-	}
+  repositories {
+    mavenCentral()
+    google()
+  }
 
-	dependencies {
-		classpath 'com.android.tools.build:gradle:::ANDROID_GRADLE_PLUGIN::'
-	}
+  dependencies {
+    classpath 'com.android.tools.build:gradle:::ANDROID_GRADLE_PLUGIN::'
+    ::if (ENV_APPODEAL_INIT_FIREBASE != null)::
+    classpath 'com.google.gms:google-services:4.5.0'
+    ::end::
+  }
 }
 
 apply plugin: 'com.android.library'
@@ -21,6 +24,12 @@ dependencies {
   implementation project(':deps:extension-api')
   implementation("androidx.annotation:annotation:1.9.1")
 
+  ::if (ENV_APPODEAL_INIT_FIREBASE != null)::
+  implementation platform("com.google.firebase:firebase-bom:34.17.0")
+  implementation("com.google.firebase:firebase-analytics")
+  ::end::
+
+    //Appodeal
     implementation "com.appodeal.ads.sdk:core:4.3.0"
     // BidMachine
     ::if (ENV_APPODEAL_EXCLUDE_AMAZON == null)::
