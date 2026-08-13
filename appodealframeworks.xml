@@ -142,6 +142,7 @@
   <dependency path="dependencies/ios/MTGSDKSplash.xcframework"/>
   <dependency path="dependencies/ios/MyTargetSDK.xcframework"/>
   <dependency path="dependencies/ios/MyTrackerSDK.xcframework"/>
+  <dependency path="dependencies/ios/NGSDK.xcframework"/>
   <dependency path="dependencies/ios/nanopb.xcframework"/>
   <dependency path="dependencies/ios/OguryAds.xcframework" embed="true"/>
   <dependency path="dependencies/ios/OguryCore.xcframework" embed="true"/>
@@ -162,11 +163,7 @@
   <dependency path="dependencies/ios/SmaatoSDKInAppBidding.xcframework" embed="true"/>
   <dependency path="dependencies/ios/SmaatoSDKInterstitial.xcframework" embed="true"/>
   <dependency path="dependencies/ios/SmaatoSDKNative.xcframework" embed="true"/>
-  <dependency path="dependencies/ios/SmaatoSDKOpenMeasurement.xcframework" embed="true"/>
-  <dependency path="dependencies/ios/SmaatoSDKOutstream.xcframework" embed="true"/>
   <dependency path="dependencies/ios/SmaatoSDKRewardedAds.xcframework" embed="true"/>
-  <dependency path="dependencies/ios/SmaatoSDKRichMedia.xcframework" embed="true"/>
-  <dependency path="dependencies/ios/SmaatoSDKVideo.xcframework" embed="true"/>
   <dependency path="dependencies/ios/StackConsentManager.xcframework"/>
   <dependency path="dependencies/ios/StackModules.xcframework"/>
   <dependency path="dependencies/ios/StackProductPresentation.xcframework"/>

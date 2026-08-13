@@ -2,36 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict> 
+  <!-- Start -->
     <key>AdAttributionKitItems</key>
       <array>
-        <dict>
-          <key>AdAttributionKitIdentifier</key>
-          <string>6lz2ygh3q6.adattributionkit</string>
-        </dict>
-        <dict>
-          <key>AdAttributionKitIdentifier</key>
-          <string>77y3x8wds4.adattributionkit</string>
-        </dict>
-        <dict>
-          <key>AdAttributionKitIdentifier</key>
-          <string>m2jqnlggk3.adattributionkit</string>
-        </dict>
-        <dict>
-          <key>AdAttributionKitIdentifier</key>
-          <string>p2jcxbzuuv.adattributionkit</string>
-        </dict>
-        <dict>
-          <key>AdAttributionKitIdentifier</key>
-          <string>pg7ctvrt6f.adattributionkit</string>
-        </dict>
-        <dict>
-          <key>AdAttributionKitIdentifier</key>
-          <string>raa6f494kr.adattributionkit</string>
-        </dict>
-        <dict>
-          <key>AdAttributionKitIdentifier</key>
-          <string>thzdn4h5nc.adattributionkit</string>
-        </dict>
-    </array>
+	<dict>
+		<key>AdAttributionKitIdentifier</key>
+		<string>6lz2ygh3q6.adattributionkit</string>
+	</dict>
+	<dict>
+		<key>AdAttributionKitIdentifier</key>
+		<string>77y3x8wds4.adattributionkit</string>
+	</dict>
+	<dict>
+		<key>AdAttributionKitIdentifier</key>
+		<string>m2jqnlggk3.adattributionkit</string>
+	</dict>
+	<dict>
+		<key>AdAttributionKitIdentifier</key>
+		<string>p2jcxbzuuv.adattributionkit</string>
+	</dict>
+	<dict>
+		<key>AdAttributionKitIdentifier</key>
+		<string>pg7ctvrt6f.adattributionkit</string>
+	</dict>
+	<dict>
+		<key>AdAttributionKitIdentifier</key>
+		<string>raa6f494kr.adattributionkit</string>
+	</dict>
+	<dict>
+		<key>AdAttributionKitIdentifier</key>
+		<string>thzdn4h5nc.adattributionkit</string>
+	</dict>
+      </array>
+  <!-- End -->
   </dict>
 </plist>

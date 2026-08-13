@@ -5,15 +5,65 @@ If you wish to modify mraid.js, modify the version located at mopub-sdk-common/m
 (function() {
   var isIOS = (/iphone|ipad|ipod/i).test(window.navigator.userAgent.toLowerCase());
   if (isIOS) {
-    console = {};
-    console.log = function(log) {
+    var existingConsole = window.console || {};
+    var timers = {};
+    var bridgeLog = function() {
+      var parts = [];
+      for (var i = 0; i < arguments.length; i++) {
+        parts.push(String(arguments[i]));
+      }
+      var log = parts.join(' ');
       var iframe = document.createElement('iframe');
       iframe.setAttribute('src', 'ios-log: ' + log);
       document.documentElement.appendChild(iframe);
       iframe.parentNode.removeChild(iframe);
       iframe = null;
     };
-    console.debug = console.info = console.warn = console.error = console.log;
+    var wrapConsoleMethod = function(methodName) {
+      var originalMethod = typeof existingConsole[methodName] === 'function' ? existingConsole[methodName] : null;
+      existingConsole[methodName] = function() {
+        bridgeLog.apply(null, arguments);
+        if (originalMethod) {
+          try {
+            originalMethod.apply(existingConsole, arguments);
+          } catch (e) {}
+        }
+      };
+    };
+
+    wrapConsoleMethod('log');
+    wrapConsoleMethod('debug');
+    wrapConsoleMethod('info');
+    wrapConsoleMethod('warn');
+    wrapConsoleMethod('error');
+
+    if (typeof existingConsole.time !== 'function') {
+      existingConsole.time = function(label) {
+        timers[label || 'default'] = Date.now();
+      };
+    }
+
+    if (typeof existingConsole.timeEnd !== 'function') {
+      existingConsole.timeEnd = function(label) {
+        label = label || 'default';
+        var start = timers[label];
+        var duration = typeof start === 'number' ? Date.now() - start : 0;
+        bridgeLog(label + ': ' + duration + 'ms');
+        delete timers[label];
+      };
+    }
+
+    if (typeof existingConsole.assert !== 'function') {
+      existingConsole.assert = function(condition) {
+        if (condition) {
+          return;
+        }
+        var args = Array.prototype.slice.call(arguments, 1);
+        bridgeLog.apply(null, args.length ? args : ['Assertion failed']);
+      };
+    }
+
+    window.console = existingConsole;
   }
 }());
 
