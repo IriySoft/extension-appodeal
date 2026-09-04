@@ -12,6 +12,10 @@ buildscript {
 		::if (ENV_APPODEAL_INIT_FIREBASE != null)::
 		classpath 'com.google.gms:google-services:4.5.0'
 		::end::
+
+		::if (ANDROID_GRADLE_PLUGIN>="9.0")::
+		classpath 'org.apache.groovy:groovy-swing:+'
+		::end::
 	}
 }
 

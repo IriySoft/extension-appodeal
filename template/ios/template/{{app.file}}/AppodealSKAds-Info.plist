@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict> 
-    <!-- Insert the SKAdNetworkItems list from tyhe docs starting here -->
+    <!-- Insert the SKAdNetworkItems list from the docs starting here -->
     <key>SKAdNetworkItems</key>
       <array>
 	<dict>
