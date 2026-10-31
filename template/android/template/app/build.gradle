@@ -18,8 +18,7 @@ System.setProperty('java.awt.headless','false')
 ::if (ANDROID_GRADLE_PLUGIN>="9.0")::
 base {
 	archivesName = "::APP_FILE::"
-}
-::end::
+}::end::
 
 android {
 	namespace "::APP_PACKAGE::"
